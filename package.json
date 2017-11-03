@@ -1,0 +1,25 @@
+{
+  "name": "project",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "react": "^16.0.0",
+    "react-ace": "^5.5.0",
+    "react-dom": "^16.0.0",
+    "react-notify-toast": "^0.4.0",
+    "react-scripts": "1.0.14",
+    "superagent": "^3.7.0"
+  },
+  "scripts": {
+    "babel": "babel --presets es2015 js/main.js -o build/main.bundle.js",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "babel-loader": "^7.1.2"
+  }
+}

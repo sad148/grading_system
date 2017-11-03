@@ -1,0 +1,95 @@
+.App {
+  text-align: center;
+}
+
+body {
+    overflow-y:hidden;
+}
+
+div#leftPane {
+    height: 91%;
+    width: 14%;
+    margin-left: 5px;
+    position: absolute;
+    border: 1px solid;
+    border-radius: 4px;
+    border-color: lightgray;
+}
+
+div#rightPane {
+    margin-left: 15%;
+    height: 93%;
+    width: 85%;
+    position: absolute;
+    display: flex;
+}
+
+#codeDisplay {
+    width: 100%;
+}
+
+div#mainDiv {
+    margin-top: 5%;
+    width: 100%;
+    height: 89%;
+    position: absolute;
+}
+
+div#app {
+    display: flex;
+}
+
+div#topPane {
+    width: 100%;
+    height: 10%;
+    background: #376c82;
+    color: white;
+    position: absolute;
+}
+
+div#codePane {
+  width: 60%;
+}
+
+div#feedbackPane{
+  width: 40%;
+}
+
+textarea#code,
+textarea#feedback {
+    font-size: 14px;
+    border-radius: 4px;
+    border-style: solid;
+    border-color: lightgray;
+    resize: none;
+    resize: none;
+    width: 97%;
+    height: 97%;
+}
+
+input#submit {
+    float: right;
+}
+
+input[type="submit"] {
+    background: #007cff;
+    color: white;
+    height: 50%;
+    width: 6%;
+    border-style: hidden;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+textarea#code:hover,
+textarea#feedback:hover {
+  border-color:#2e85c3;
+}
+
+div#submitDiv {
+    position: absolute;
+    height: 10%;
+    top: 92%;
+    float: right;
+    width: 99%;
+}
