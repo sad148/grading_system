@@ -3,6 +3,7 @@ const app = express();
 var bodyParser = require('body-parser');
 const updateFeedback = require('./updateFeedback.js');
 const loadStudentCode = require('./loadStudentCode.js');
+const loadRubric = require('./loadRubric.js');
 
 app.use(bodyParser.json());
 
@@ -27,4 +28,10 @@ app.get('/loadStudentCode',(req,res,next) => {
 	loadStudentCode.loadStudentCode(req,res,(response) => {
 		res.send(response);
 	})	
+})
+
+app.get('/loadRubric',(req,res,next) => {
+	loadRubric.loadRubric(req,res,(response) => {
+		res.send(response);
+	})
 })

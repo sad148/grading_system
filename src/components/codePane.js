@@ -10,8 +10,9 @@ export default class CodePane extends Component {
 	}
 
 	componentWillReceiveProps = (nextProps) => {
+		console.log("componentWillReceiveProps",nextProps);
 		this.setState({
-			codeData:nextProps.data
+			codeData:nextProps.codeData
 		})
 	}
 

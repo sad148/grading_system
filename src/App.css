@@ -6,20 +6,35 @@ body {
     overflow-y:hidden;
 }
 
+select#studDropdown {
+    width: 100%;
+    height: 70%;
+}
+
+.borderProps {
+    border: 1px solid lightgray;
+    border-radius: 4px;
+}
+
 div#leftPane {
     height: 91%;
-    width: 14%;
+    width: 18%;
     margin-left: 5px;
     position: absolute;
-    border: 1px solid;
-    border-radius: 4px;
-    border-color: lightgray;
+}
+
+div#studentsList {
+    height: 7%;    
+}
+
+div#rubric {
+    height: 100%;    
 }
 
 div#rightPane {
-    margin-left: 15%;
-    height: 93%;
-    width: 85%;
+    margin-left: 20%;
+    height: 99%;
+    width: 80%;
     position: absolute;
     display: flex;
 }
@@ -47,20 +62,39 @@ div#topPane {
     position: absolute;
 }
 
+.guidelinesData {
+    width: 73%;
+    margin-bottom: 7%;
+    height: 23px;
+}
+
+button.more {
+    background: transparent;
+    border: 0px;
+    color: blue;
+    cursor: pointer;
+}
+
+div#block {
+    margin-left: -5px;
+}
+
+button.more:visited {
+    border:0px;
+}
+
 div#codePane {
-  width: 60%;
+  width: 55%;
 }
 
 div#feedbackPane{
-  width: 40%;
+  width: 43%;
+  height: 94%;
 }
 
 textarea#code,
 textarea#feedback {
     font-size: 14px;
-    border-radius: 4px;
-    border-style: solid;
-    border-color: lightgray;
     resize: none;
     resize: none;
     width: 97%;
