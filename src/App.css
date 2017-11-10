@@ -16,9 +16,14 @@ select#studDropdown {
     border-radius: 4px;
 }
 
+.gradeClass {
+	color:red;
+	font-size: 13px;
+}
+
 div#leftPane {
     height: 91%;
-    width: 18%;
+    width: 25%;
     margin-left: 5px;
     position: absolute;
 }
@@ -39,8 +44,45 @@ div#rightPane {
     display: flex;
 }
 
+.feedbackCollapsible {
+    height: 93%;
+    background: red;
+   	border:1px solid lightgray;
+	border-radius:4px;
+	margin-bottom:1%;
+	margin-left:1%;
+	width:98%;
+}
+
+.Collapsible {
+	border:1px solid lightgray;
+	border-radius:4px;
+	margin-bottom:1%;
+	margin-left:1%;
+	width:98%;
+}
+
+.feedbackCollapsible__contentOuter {
+	background:blue;
+	height:70%;
+}
+
+span.feedbackCollapsible__trigger,
+span.Collapsible__trigger {
+    color: black;
+    margin-top: 5px;
+    font-size: larger;
+    font-weight: bold;
+}
+
+h3 {
+    margin-bottom: 0px;
+    margin-top: 5px;
+}
+
 #codeDisplay {
-    width: 100%;
+    width: 85%;
+	margin-left:15%;
 }
 
 div#mainDiv {
@@ -66,6 +108,7 @@ div#topPane {
     width: 73%;
     margin-bottom: 7%;
     height: 23px;
+	background:white;
 }
 
 button.more {
@@ -83,22 +126,28 @@ button.more:visited {
     border:0px;
 }
 
+div#deductions {
+    width: 98%;
+    margin-left: 1%;
+    margin-bottom: 1%;
+}
+
 div#codePane {
   width: 55%;
 }
 
 div#feedbackPane{
-  width: 43%;
+  width: 42%;
   height: 94%;
+  margin-left:9%;
 }
 
-textarea#code,
 textarea#feedback {
     font-size: 14px;
     resize: none;
     resize: none;
     width: 97%;
-    height: 97%;
+	height: 79%;
 }
 
 input#submit {

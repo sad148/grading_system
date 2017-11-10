@@ -14,13 +14,14 @@ class LeftPane extends Component {
 		let guidelines = [];
 		let rubricData = nextProps.loadRubric;
 		if(nextProps.rubricLoaded == true) {
-			for(let i = 0;i<rubricData.length;i+3) {
+			console.log("inside nextProps",rubricData)
+			for(let i = 0;i<rubricData.length;i++) {
 				guidelines.push(
 					<div id = 'block'>
-						<input type = 'checkbox' class = 'guidelinesCheckbox'></input>						
-						<input type = 'text' value = {rubricData[i].shortForm}></input>
-						<input type = 'text' value = {rubricData[i].grade}></input>
-						<button value = 'more' class = 'more'>More</button>
+						<input type = 'checkbox' id = {i} className = 'guidelinesCheckbox' onClick={()=>this.checkboxClicked(rubricData, i)}></input>						
+						<input type = 'text' className = 'guidelinesData borderProps' value = {rubricData[i].shortForm} disabled></input>&nbsp;
+						<label className = 'gradeClass'>{rubricData[i].grade}</label>
+						<button value = 'more' className = 'more'>More</button>
 					</div>
 					)
 			}
@@ -28,6 +29,10 @@ class LeftPane extends Component {
 		}		
 	}
 
+	checkboxClicked = (rubricData, index) => {
+		
+	}
+	
 	loadStudentData = () => {
 		let student = document.getElementById('studDropdown').value
 		this.setState({"student":student});
@@ -49,7 +54,7 @@ class LeftPane extends Component {
 					<div id = 'rubric' class = 'borderProps'>
 						<h3>Guidelines</h3>
 						<hr/>
-						<div id = 'guidelines'>
+						<div id = 'guidelines'>							
 							{this.state.guidelines}
 						</div>
 					</div>
