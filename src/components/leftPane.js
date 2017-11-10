@@ -12,12 +12,14 @@ class LeftPane extends Component {
 	componentWillReceiveProps = (nextProps) => {
 		console.log("inside componentWillReceiveProps",nextProps,this.props);
 		let guidelines = [];
+		let rubricData = nextProps.loadRubric;
 		if(nextProps.rubricLoaded == true) {
-			for(let i = 0;i<10;i++) {
+			for(let i = 0;i<rubricData.length;i+3) {
 				guidelines.push(
 					<div id = 'block'>
-						<input type = 'checkbox' class = 'guidelinesCheckbox'></input>
-						<input type = 'text' class = 'borderProps guidelinesData'></input>
+						<input type = 'checkbox' class = 'guidelinesCheckbox'></input>						
+						<input type = 'text' value = {rubricData[i].shortForm}></input>
+						<input type = 'text' value = {rubricData[i].grade}></input>
 						<button value = 'more' class = 'more'>More</button>
 					</div>
 					)

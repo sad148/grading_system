@@ -10,7 +10,8 @@ export default function loadRubric() {
 				console.log("Error",err);
 			}
 			else {
-				dispatch({type:"RUBRICDATA_RECEIVED",payload:res.body.data})
+				if(res.body.code == 200)
+					dispatch({type:"RUBRICDATA_RECEIVED",payload:res.body.data})
 			}
 		})	
 	}
