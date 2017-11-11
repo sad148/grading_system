@@ -7,6 +7,7 @@ import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import { createBrowserHistory } from 'history';
 import loadRubric from './reducers/loadRubric_reducer.js'
 import codeAndFeedbackReducer from './reducers/codeAndFeedback_reducer.js'
+import toggleRubric from './reducers/toggleRubric_reducer.js'
 
 const logger = createLogger({})
 
@@ -14,6 +15,7 @@ const store = createStore(
   combineReducers({
     loadRubric,
     codeAndFeedbackReducer,
+    toggleRubric,
     routing: routerReducer    
   }),{},applyMiddleware(logger,thunk,promise())
 )

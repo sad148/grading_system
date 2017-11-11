@@ -10,7 +10,6 @@ class LeftPane extends Component {
 	}
 
 	componentWillReceiveProps = (nextProps) => {
-		console.log("inside componentWillReceiveProps",nextProps,this.props);
 		let guidelines = [];
 		let rubricData = nextProps.loadRubric;
 		if(nextProps.rubricLoaded == true) {
@@ -18,7 +17,7 @@ class LeftPane extends Component {
 			for(let i = 0;i<rubricData.length;i++) {
 				guidelines.push(
 					<div id = 'block'>
-						<input type = 'checkbox' id = {i} className = 'guidelinesCheckbox' onClick={()=>this.checkboxClicked(rubricData, i)}></input>						
+						<input type = 'checkbox' id = {i} className = 'guidelinesCheckbox' onClick={()=>this.checkboxClicked(rubricData[i], i)}></input>						
 						<input type = 'text' className = 'guidelinesData borderProps' value = {rubricData[i].shortForm} disabled></input>&nbsp;
 						<label className = 'gradeClass'>{rubricData[i].grade}</label>
 						<button value = 'more' className = 'more'>More</button>
@@ -30,7 +29,12 @@ class LeftPane extends Component {
 	}
 
 	checkboxClicked = (rubricData, index) => {
-		
+		console.log(index, document.getElementById(index).checked)
+		if(document.getElementById(index).checked == true) {
+			this.props.dispatch({type:"ADDRUBRIC", rubricData:rubricData, rubricId:index, rubricOperation:1})
+		} else {
+			this.props.dispatch({type:"REMOVERUBRIC", rubricData:rubricData, rubricId:index, rubricOperation:0})
+		}
 	}
 	
 	loadStudentData = () => {
@@ -43,7 +47,7 @@ class LeftPane extends Component {
 		return(
 				<div id = 'leftPane'>
 					<div id = 'studentsList'>
-						<select id = 'studDropdown' class = 'borderProps' onChange = {this.loadStudentData}>
+						<select id = 'studDropdown' className = 'borderProps' onChange = {this.loadStudentData}>
 							<option value = 'sad148'>sad148</option>
 							<option value = 'dig22'>dig22</option>
 							<option value = 'dab249'>dab249</option>
@@ -51,7 +55,7 @@ class LeftPane extends Component {
 							<option value = 'rar154'>rar154</option>
 						</select>
 					</div>
-					<div id = 'rubric' class = 'borderProps'>
+					<div id = 'rubric' className = 'borderProps'>
 						<h3>Guidelines</h3>
 						<hr/>
 						<div id = 'guidelines'>							

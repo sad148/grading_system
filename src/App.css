@@ -21,6 +21,10 @@ select#studDropdown {
 	font-size: 13px;
 }
 
+td, th {
+    padding: 5px;
+}
+
 div#leftPane {
     height: 91%;
     width: 25%;
@@ -76,8 +80,9 @@ span.Collapsible__trigger {
 }
 
 h3 {
-    margin-bottom: 0px;
+    margin-bottom: -15px;
     margin-top: 5px;
+    font-size:17px;
 }
 
 #codeDisplay {
@@ -128,7 +133,6 @@ button.more:visited {
 
 div#deductions {
     width: 98%;
-    margin-left: 1%;
     margin-bottom: 1%;
 }
 
@@ -142,12 +146,18 @@ div#feedbackPane{
   margin-left:9%;
 }
 
+div#feedbackDiv {
+	width:98%;	
+}
+
 textarea#feedback {
     font-size: 14px;
     resize: none;
     resize: none;
-    width: 97%;
-	height: 79%;
+    width: 100%;
+    border:0px;
+	height: 93%;
+	margin-top: -15px;
 }
 
 input#submit {
