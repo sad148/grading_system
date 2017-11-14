@@ -53,7 +53,7 @@ div#studentsList {
 
 div#rubric {
     height: 94%;
-    margin-top: 8%;
+    margin-top: 10%;
 }
 
 div#rightPane {
@@ -62,37 +62,6 @@ div#rightPane {
     width: 74%;
     position: absolute;
     display: flex;
-}
-
-.feedbackCollapsible {
-    height: 93%;
-    background: red;
-   	border:1px solid lightgray;
-	border-radius:4px;
-	margin-bottom:1%;
-	margin-left:1%;
-	width:98%;
-}
-
-.Collapsible {
-	border:1px solid lightgray;
-	border-radius:4px;
-	margin-bottom:1%;
-	margin-left:1%;
-	width:98%;
-}
-
-.feedbackCollapsible__contentOuter {
-	background:blue;
-	height:70%;
-}
-
-span.feedbackCollapsible__trigger,
-span.Collapsible__trigger {
-    color: black;
-    margin-top: 5px;
-    font-size: larger;
-    font-weight: bold;
 }
 
 h3 {
@@ -155,7 +124,7 @@ div#deductions {
 
 div#deductionsTableDiv {
 	overflow-y:auto;
-	height: 80%;
+	height: 79%;
 }
 
 div#feedbackPane{
@@ -174,7 +143,7 @@ div#submit {
 
 div#guidelines {
     overflow-y: auto;
-    height: 92%
+    height: 91%
 }
 
 button#submitButton {
@@ -193,7 +162,7 @@ textarea#feedback {
     resize: none;
     width: 99%;
     border:0px;
-	height: 86%;
+	height: 85%;
 	margin-top: 0px;
 }
 

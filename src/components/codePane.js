@@ -31,7 +31,7 @@ export default class CodePane extends Component {
 					  highlightActiveLine={true}	
 					  style={{
 					  	width:"98%",
-					  	height:"92%",
+					  	height:"91%",
     					"marginLeft": "1%"
 					  }}				  
 					  setOptions={{
