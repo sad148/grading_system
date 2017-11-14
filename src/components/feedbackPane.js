@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import {Collapse, Button} from 'react-bootstrap';
 import { connect } from 'react-redux'
+import { ToastContainer, toast } from 'react-toastify';
+import '../../node_modules/react-toastify/dist/ReactToastify.min.css';
 var _ = require('lodash');
 var updateFeedback = require('../actions/updateFeedBackApi.js');
 
 class FeedbackPane extends Component {
 	componentWillMount = () => {
 		this.arrData = [];
-		this.setState({openDeductions:false, openFeedback:true, tableDiv:"", feedback:""})
+		this.setState({openDeductions:true, openFeedback:true, tableDiv:"", feedback:""})
 	}	
 
 	componentWillReceiveProps = (nextProps) => {
@@ -79,34 +80,37 @@ class FeedbackPane extends Component {
 		}
 
 		updateFeedback.update(data,(res)=>{
-			
+			if(res == 200) {
+				toast.success("Updated successfully!!!")
+			}
 		})
 	}
 
 	render() {
-		return (<div id = 'feedbackPane'>
-					<div id = 'deductions' className = 'borderProps'>
-						<h3 onClick = {() => this.toggleCollapse(0)}>Deductions</h3>
-						<hr/>
-						<Collapse in = {this.state.openDeductions}>
-							<table id = 'deductionsTable'>
-								<tbody>	        	 			
-		        	 				{this.state.tableDiv}
-		        	 			</tbody>
-		        	 		</table>
-	        	 		</Collapse>
-					</div>
-					<div id = 'feedbackDiv' className = 'borderProps'>
-						<h3 onClick = {() => this.toggleCollapse(1)}>Feedback</h3>
-						<hr/>
-						<Collapse in = {this.state.openFeedback}>
-	        	 			<textarea id='feedback' placeholder='Write feedback' value = {this.state.feedback} onChange = {() => this.updateTextarea()}></textarea>
-	        	 		</Collapse>
-	        	 	</div>
-	        	 	<div id = 'submit'>
-	        	 		<Button bsStyle="primary" onClick = {this.submitFeedback}>Submit</Button>
-	        	 	</div>
-	    		</div>)
+		return (<div id = 'feedbackSubmitDiv'>
+					<div id = 'feedbackPane'>
+						<div id = 'deductions' className = 'borderProps'>
+							<h3 onClick = {() => this.toggleCollapse(0)}>Deductions</h3>
+							<hr/>
+								<div id = 'deductionsTableDiv'>
+									<table id = 'deductionsTable'>
+										<tbody>	        	 			
+				        	 				{this.state.tableDiv}
+				        	 			</tbody>
+				        	 		</table>
+				        	 	</div>
+						</div>
+						<div id = 'feedbackDiv' className = 'borderProps'>
+							<h3 onClick = {() => this.toggleCollapse(1)}>Feedback</h3>
+							<hr/>
+							<textarea id='feedback' placeholder='Write feedback' value = {this.state.feedback} onChange = {() => this.updateTextarea()}></textarea>
+	        	 		</div>	        	 	
+		    		</div>
+		    		<div id = 'submit'>
+		        		<button id = 'submitButton' onClick = {this.submitFeedback}>Submit</button>
+		        	</div>		        	
+		        </div>
+	    		)
 	}
 }
 

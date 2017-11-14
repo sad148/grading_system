@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import CodePane from './codePane.js'
 import FeedbackPane from './feedbackPane.js'
 import { connect } from 'react-redux'
+import { ToastContainer, toast } from 'react-toastify';
 
 class RightPane extends Component {
 	componentWillMount = () => {

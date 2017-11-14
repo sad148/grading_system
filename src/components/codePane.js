@@ -17,7 +17,9 @@ export default class CodePane extends Component {
 	}
 
 	render() {
-		return (<div id = 'codePane'>
+		return (<div id = 'codePane' className = 'borderProps'>
+			      <h3>Code</h3>
+				  <hr/>				
 				  <AceEditor
 					  mode="java"
 					  theme="monokai"
@@ -28,8 +30,9 @@ export default class CodePane extends Component {
 					  showGutter={true}
 					  highlightActiveLine={true}	
 					  style={{
-					  	width:"100%",
-					  	height:"98%"
+					  	width:"98%",
+					  	height:"92%",
+    					"marginLeft": "1%"
 					  }}				  
 					  setOptions={{
 					  enableBasicAutocompletion: false,

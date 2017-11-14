@@ -2,6 +2,8 @@ import React,{Component} from 'react';
 import { connect } from 'react-redux'
 import loadRubric from '../actions/loadRubric.js'
 import loadData from '../actions/loadCodeandFeedback.js'
+import { ToastContainer, toast } from 'react-toastify';
+import '../../node_modules/react-toastify/dist/ReactToastify.min.css';
 
 class LeftPane extends Component {
 	componentWillMount = () => {
@@ -20,12 +22,16 @@ class LeftPane extends Component {
 						<input type = 'checkbox' id = {i} className = 'guidelinesCheckbox' onClick={()=>this.checkboxClicked(rubricData[i], i)}></input>						
 						<input type = 'text' className = 'guidelinesData borderProps' value = {rubricData[i].shortForm} disabled></input>&nbsp;
 						<label className = 'gradeClass'>{rubricData[i].grade}</label>
-						<button value = 'more' className = 'more'>More</button>
+						<button value = 'more' className = 'more' onClick = { () => this.showFullInfo(rubricData[i].fullForm)}>More</button>
 					</div>
 					)
 			}
 		this.setState({guidelines:guidelines})
 		}		
+	}
+
+	showFullInfo = (fullForm) => {
+		toast.success(fullForm);
 	}
 
 	checkboxClicked = (rubricData, index) => {
@@ -47,13 +53,17 @@ class LeftPane extends Component {
 		return(
 				<div id = 'leftPane'>
 					<div id = 'studentsList'>
-						<select id = 'studDropdown' className = 'borderProps' onChange = {this.loadStudentData}>
-							<option value = 'sad148'>sad148</option>
-							<option value = 'dig22'>dig22</option>
-							<option value = 'dab249'>dab249</option>
-							<option value = 'asb161'>asb161</option>
-							<option value = 'rar154'>rar154</option>
-						</select>
+						<div id = 'selectStudentsDiv' className = 'borderProps'>
+							<h3>Students</h3>
+							<hr/>						
+							<select id = 'studDropdown' className = 'borderProps' onChange = {this.loadStudentData}>
+								<option value = 'sad148'>sad148</option>
+								<option value = 'dig22'>dig22</option>
+								<option value = 'dab249'>dab249</option>
+								<option value = 'asb161'>asb161</option>
+								<option value = 'rar154'>rar154</option>
+							</select>
+						</div>
 					</div>
 					<div id = 'rubric' className = 'borderProps'>
 						<h3>Guidelines</h3>
@@ -62,6 +72,13 @@ class LeftPane extends Component {
 							{this.state.guidelines}
 						</div>
 					</div>
+					<ToastContainer 
+			          position="top-left"
+			          type="success"
+			          autoClose={false}
+			          newestOnTop={false}
+			          closeOnClick			          
+			        />
 				</div>
 			)
 	}
@@ -77,3 +94,4 @@ const mapStateToProps = (store) => {
 export default connect(mapStateToProps)(LeftPane);
 
 //<a href="javascript:void(0)" onClick={this.loadData}>Student1</a>
+/**/

@@ -6,10 +6,10 @@ export function update(value,cb) {
 		.send({feedback:value})
 		.end((err,res) => {
 			if(err) {
-				cb(res.body);
+				cb(err);
 			}
 			else {
-				cb(res.body);
+				cb(res.body.code);
 			}
 		})
 }
