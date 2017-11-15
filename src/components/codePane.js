@@ -30,13 +30,13 @@ export default class CodePane extends Component {
 					  theme="monokai"
 					  name="codeDisplay"
 					  value={this.state.codeData}
-					  fontSize={14}
+					  fontSize={12}
 					  showPrintMargin={true}
 					  showGutter={true}
 					  highlightActiveLine={true}	
 					  style={{
 					  	width:"98%",
-					  	height:"92%",
+					  	height:"91%",
     					"marginLeft": "1%"
 					  }}				  
 					  setOptions={{
@@ -44,7 +44,6 @@ export default class CodePane extends Component {
 					  enableLiveAutocompletion: false,
 					  enableSnippets: false,
 					  showLineNumbers: true,
-					  tabSize: 2,
 					  }}/>
 	    		</div>)
 	}

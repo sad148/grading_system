@@ -8,20 +8,22 @@ var updateFeedback = require('../actions/updateFeedBackApi.js');
 class FeedbackPane extends Component {
 	componentWillMount = () => {
 		this.arrData = [];
-		this.setState({openDeductions:true, openFeedback:true, tableDiv:"", feedback:""})
+		this.setState({openDeductions:true, openFeedback:true, tableDiv:"", feedback:"", displayGrade:100})
 	}	
 
 	componentWillReceiveProps = (nextProps) => {
 		let rubricData = nextProps.rubricData
 		let tableArr = [];
+		let grade = this.state.displayGrade;
 
 		if(nextProps.rubricOperation == 1) {
 			let x = document.getElementById("deductionsTable").rows.length;			
 			if(x != 0) {
-				tableArr = this.state.tableDiv				
+				tableArr = this.state.tableDiv
 			} 
 
 			rubricData.id = nextProps.rubricId
+			grade = grade + parseInt(rubricData.grade)
 			this.arrData.push(rubricData);
 
 			tableArr.push(
@@ -33,39 +35,27 @@ class FeedbackPane extends Component {
 			if(this.state.openDeductions == false) {
 				this.setState({openDeductions:true})
 			}
-			this.setState({tableDiv:tableArr})
+			this.setState({tableDiv:tableArr, displayGrade:grade})
 		} else {
+			//let grade = this.state.grade;
 			for(let i = 0;i < this.arrData.length; i++) {
-				if(nextProps.rubricId != this.arrData[i].id) {
+				if(nextProps.rubricId != this.arrData[i].id) {				
 					tableArr.push(
 						<tr align = "left">
 							<td>{this.arrData[i].fullForm} (<label style = {{color:"red"}}>{this.arrData[i].grade}</label>)</td>
 						</tr>
 					)
-				}
+				} else {
+					console.log("before ",grade,parseInt(this.arrData[i].grade))
+					grade = grade - parseInt(this.arrData[i].grade)
+					console.log("after ",grade,parseInt(this.arrData[i].grade));
+				}				
 			}
-			this.setState({tableDiv:tableArr})
+			this.setState({tableDiv:tableArr, displayGrade:grade})
 			this.arrData = _.pullAllBy(this.arrData,[{id:nextProps.rubricId}],'id');
 		}
 
 		this.setState({feedback:nextProps.feedback})
-	}
-
-	toggleCollapse = (type) => {
-		console.log("inside toggleCollapse",type)
-		if (type == 0) {
-			if(this.state.openDeductions == false) {
-				this.setState({openDeductions:true});	
-			} else {
-				this.setState({openDeductions:false});
-			}		
-		} else {
-			if(this.state.openFeedback == false) {
-				this.setState({openFeedback:true});	
-			} else {
-				this.setState({openFeedback:false});
-			}
-		}
 	}
 
 	updateTextarea = () => {
@@ -76,7 +66,8 @@ class FeedbackPane extends Component {
 	submitFeedback = () => {
 		let data = {
 			oldFeedback:this.state.feedback,
-			newFeedback:this.arrData
+			newFeedback:this.arrData,
+			grades:this.state.displayGrade
 		}
 
 		updateFeedback.update(data,(res)=>{
@@ -90,7 +81,7 @@ class FeedbackPane extends Component {
 		return (<div id = 'feedbackSubmitDiv'>
 					<div id = 'feedbackPane'>
 						<div id = 'deductions' className = 'borderProps'>
-							<h3 onClick = {() => this.toggleCollapse(0)}>Deductions</h3>
+							<h3>Deductions</h3>
 							<hr/>
 								<div id = 'deductionsTableDiv'>
 									<table id = 'deductionsTable'>
@@ -101,14 +92,17 @@ class FeedbackPane extends Component {
 				        	 	</div>
 						</div>
 						<div id = 'feedbackDiv' className = 'borderProps'>
-							<h3 onClick = {() => this.toggleCollapse(1)}>Feedback</h3>
+							<h3>Feedback</h3>
 							<hr/>
 							<textarea id='feedback' placeholder='Write feedback' value = {this.state.feedback} onChange = {() => this.updateTextarea()}></textarea>
 	        	 		</div>	        	 	
 		    		</div>
 		    		<div id = 'submit'>
 		        		<button id = 'submitButton' onClick = {this.submitFeedback}>Submit</button>
-		        	</div>		        	
+		        		<div id = 'grades'>
+		        			<label>Grade:</label><label style={{color:"red"}}>{this.state.displayGrade}</label>
+		        		</div>
+		        	</div>
 		        </div>
 	    		)
 	}

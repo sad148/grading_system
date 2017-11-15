@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import CodePane from './components/codePane.js'
 import FeedbackPane from './components/feedbackPane.js'
-
 import LeftPane from './components/leftPane.js'
 import RightPane from './components/rightPane.js'
 
@@ -15,11 +14,7 @@ export default class App extends Component {
 		  </div>
 		  <div id='mainDiv' className="App">      	
 			<LeftPane />
-			<RightPane />		    
-
-		    <div id ='submitDiv'>
-
-			</div>
+			<RightPane />
 		  </div>
 		</div>
 		);

@@ -4,15 +4,20 @@ function updateFeedback (req,res,cb) {
 	let data = req.body.feedback;
 	let oldFeedback = data.oldFeedback;
 	let newFeedback = data.newFeedback;
+	let grades = data.grades;
 	let splitFeedback = oldFeedback.split('\n');
-	console.log(newFeedback.length)
+	let gradesUpdated = false;
 	for(let i = 0;i<splitFeedback.length;i++) {
 		if(splitFeedback[i].includes('#READER:')) {
-			for(let j = 0;j < newFeedback.length; j++) {				
-				let string = newFeedback[j].grade + '\xa0' + newFeedback[j].fullForm;				
-				splitFeedback.splice(i + 1,0,string);
+			if(gradesUpdated == false) {
+				splitFeedback.splice(i + 1, 0, "Grades - " + grades);
+				gradesUpdated = true;				
 			}
-			splitFeedback.splice(i + newFeedback.length + 1, 0, "</#READER>");
+			for(let j = 0;j < newFeedback.length; j++) {
+				let string = newFeedback[j].grade + '\xa0' + newFeedback[j].fullForm;				
+				splitFeedback.splice(i + 2,0,string);
+			}
+			splitFeedback.splice(i + newFeedback.length + 2, 0, "</#READER>");
 			break;
 		}
 	}
