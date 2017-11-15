@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import CodePane from './components/codePane.js'
 import FeedbackPane from './components/feedbackPane.js'
-import Notifications, {notify} from 'react-notify-toast';
+
 import LeftPane from './components/leftPane.js'
 import RightPane from './components/rightPane.js'
 
@@ -16,7 +16,7 @@ export default class App extends Component {
 		  <div id='mainDiv' className="App">      	
 			<LeftPane />
 			<RightPane />		    
-		    <Notifications />
+
 		    <div id ='submitDiv'>
 
 			</div>

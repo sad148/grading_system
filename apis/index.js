@@ -4,6 +4,8 @@ var bodyParser = require('body-parser');
 const updateFeedback = require('./updateFeedback.js');
 const loadStudentCode = require('./loadStudentCode.js');
 const loadRubric = require('./loadRubric.js');
+const runStudentCode = require('./runStudentCode.js')
+
 
 app.use(bodyParser.json());
 
@@ -34,4 +36,10 @@ app.get('/loadRubric',(req,res,next) => {
 	loadRubric.loadRubric(req,res,(response) => {
 		res.send(response);
 	})
+})
+
+app.post('/runStudentCode',(req,res,next) => {
+    runStudentCode.runStudentCode(req,res,(response) => {
+        res.send(response);
+    })
 })

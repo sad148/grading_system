@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import brace from 'brace';
 import AceEditor from 'react-ace';
 import 'brace/mode/java';
-import 'brace/theme/monokai'
+import 'brace/theme/monokai';
+var runCode = require('../actions/runCode.js')
 
 export default class CodePane extends Component {
 	componentWillMount = () =>{
@@ -16,9 +17,13 @@ export default class CodePane extends Component {
 		})
 	}
 
+    runStudentCode = () => {
+        runCode.run();
+    }
+
 	render() {
 		return (<div id = 'codePane' className = 'borderProps'>
-			      <h3>Code</h3>
+			<h3>Code</h3><button onClick={this.runStudentCode}> Run </button>
 				  <hr/>				
 				  <AceEditor
 					  mode="java"
