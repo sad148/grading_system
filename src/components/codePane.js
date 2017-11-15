@@ -25,7 +25,7 @@ export default class CodePane extends Component {
 					  theme="monokai"
 					  name="codeDisplay"
 					  value={this.state.codeData}
-					  fontSize={14}
+					  fontSize={12}
 					  showPrintMargin={true}
 					  showGutter={true}
 					  highlightActiveLine={true}	
@@ -39,7 +39,6 @@ export default class CodePane extends Component {
 					  enableLiveAutocompletion: false,
 					  enableSnippets: false,
 					  showLineNumbers: true,
-					  tabSize: 2,
 					  }}/>
 	    		</div>)
 	}
