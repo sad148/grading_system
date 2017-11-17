@@ -32,7 +32,8 @@ export default class CodePane extends Component {
 					  style={{
 					  	width:"98%",
 					  	height:"91%",
-    					"marginLeft": "1%"
+    					"marginLeft": "1%",
+    					"borderRadius":"4px"
 					  }}				  
 					  setOptions={{
 					  enableBasicAutocompletion: false,

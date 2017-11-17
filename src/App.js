@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import CodePane from './components/codePane.js'
 import FeedbackPane from './components/feedbackPane.js'
 import LeftPane from './components/leftPane.js'
