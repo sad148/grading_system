@@ -104,11 +104,3 @@ const mapStateToProps = (store) => {
 export default connect(mapStateToProps)(LeftPane);
 
 //<a href="javascript:void(0)" onClick={this.loadData}>Student1</a>
-/*<ToastContainer 
-			          position="top-left"
-			          type="success"
-			          autoClose={true}
-			          delay="2000"
-			          newestOnTop={false}
-			          closeOnClick			          
-			        />*/

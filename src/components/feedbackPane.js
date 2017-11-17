@@ -72,7 +72,9 @@ class FeedbackPane extends Component {
 
 		updateFeedback.update(data,(res)=>{
 			if(res == 200) {
-				toast.success("Updated successfully!!!")
+				toast.success("Updated Successfully!!!", {
+			    	position: toast.POSITION.TOP_CENTER
+			    })
 			}
 		})
 	}
@@ -103,6 +105,12 @@ class FeedbackPane extends Component {
 		        			<label>Grade:</label><label style={{color:"red"}}>{this.state.displayGrade}</label>
 		        		</div>
 		        	</div>
+		        	<ToastContainer 
+			          type="success"
+			          autoClose={3000}			          
+			          closeOnClick
+			          hideProgressBar		          
+			        />
 		        </div>
 	    		)
 	}
