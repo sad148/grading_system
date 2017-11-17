@@ -14,6 +14,7 @@ body {
 div#grades {
     float: left;
     margin-right: -16%;
+    font-weight: bold;
 }
 
 select#studDropdown {
@@ -69,16 +70,15 @@ div#rightPane {
     display: flex;
 }
 
-h3 {
+h4, h3 {
     margin-bottom: 0px;
     margin-top: 5px;
-    font-size:17px;
 }
 
 div#mainDiv {
-    margin-top: 5%;
+    margin-top: 3%;
     width: 100%;
-    height: 89%;
+    height: 93%;
     position: absolute;
     display: flex;
 }
@@ -93,7 +93,7 @@ div#app {
 
 div#topPane {
     width: 100%;
-    height: 10%;
+    height: 6%;
     background: #376c82;
     color: white;
     position: absolute;
