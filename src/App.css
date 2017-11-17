@@ -11,7 +11,8 @@ textarea,
 input,
 select,
 button {
-  	font-family: 'Raleway', Fallback, sans-serif;	
+  	font-family: 'Raleway', Fallback, sans-serif;
+  	outline:none;
 }
 
 body {
@@ -210,6 +211,7 @@ textarea#feedback:hover {
 
 ::-webkit-scrollbar {
     width: 8px;
+    height:8px;
 }
  
 ::-webkit-scrollbar-track {
