@@ -4,6 +4,14 @@ import loadRubric from '../actions/loadRubric.js'
 import loadData from '../actions/loadCodeandFeedback.js'
 import { ToastContainer, toast } from 'react-toastify';
 import '../../node_modules/react-toastify/dist/ReactToastify.min.css';
+import Notifications, {notify} from 'react-notify-toast';
+import SkyLight from 'react-skylight';
+
+var modal = {    
+    width: '45%',
+    height: '18%',
+    borderRadius: '15px'
+};
 
 class LeftPane extends Component {
 	componentWillMount = () => {
@@ -31,7 +39,8 @@ class LeftPane extends Component {
 	}
 
 	showFullInfo = (fullForm) => {
-		toast.success(fullForm);
+		this.simpleDialog.show();
+		this.setState({fullForm:fullForm})		
 	}
 
 	checkboxClicked = (rubricData, index) => {
@@ -54,7 +63,7 @@ class LeftPane extends Component {
 				<div id = 'leftPane'>
 					<div id = 'studentsList'>
 						<div id = 'selectStudentsDiv' className = 'borderProps'>
-							<h3>Students</h3>
+							<h4>Students</h4>
 							<hr/>						
 							<select id = 'studDropdown' className = 'borderProps' onChange = {this.loadStudentData}>
 								<option value = 'sad148'>sad148</option>
@@ -66,19 +75,20 @@ class LeftPane extends Component {
 						</div>
 					</div>
 					<div id = 'rubric' className = 'borderProps'>
-						<h3>Guidelines</h3>
+						<h4>Guidelines</h4>
 						<hr/>
 						<div id = 'guidelines'>							
 							{this.state.guidelines}
 						</div>
 					</div>
-					<ToastContainer 
-			          position="top-left"
-			          type="success"
-			          autoClose={false}
-			          newestOnTop={false}
-			          closeOnClick			          
-			        />
+					<Notifications />
+					<SkyLight dialogStyles = {modal} hideOnOverlayClicked ref = {ref => this.simpleDialog = ref}>
+						<div>
+							<h4>Description</h4>
+							<hr />
+							{this.state.fullForm}	
+						</div>			       
+			        </SkyLight>
 				</div>
 			)
 	}
@@ -94,4 +104,11 @@ const mapStateToProps = (store) => {
 export default connect(mapStateToProps)(LeftPane);
 
 //<a href="javascript:void(0)" onClick={this.loadData}>Student1</a>
-/**/
+/*<ToastContainer 
+			          position="top-left"
+			          type="success"
+			          autoClose={true}
+			          delay="2000"
+			          newestOnTop={false}
+			          closeOnClick			          
+			        />*/

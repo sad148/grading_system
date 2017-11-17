@@ -81,7 +81,7 @@ class FeedbackPane extends Component {
 		return (<div id = 'feedbackSubmitDiv'>
 					<div id = 'feedbackPane'>
 						<div id = 'deductions' className = 'borderProps'>
-							<h3>Deductions</h3>
+							<h4>Deductions</h4>
 							<hr/>
 								<div id = 'deductionsTableDiv'>
 									<table id = 'deductionsTable'>
@@ -92,7 +92,7 @@ class FeedbackPane extends Component {
 				        	 	</div>
 						</div>
 						<div id = 'feedbackDiv' className = 'borderProps'>
-							<h3>Feedback</h3>
+							<h4>Feedback</h4>
 							<hr/>
 							<textarea id='feedback' placeholder='Write feedback' value = {this.state.feedback} onChange = {() => this.updateTextarea()}></textarea>
 	        	 		</div>	        	 	

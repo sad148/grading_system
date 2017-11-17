@@ -18,7 +18,7 @@ export default class CodePane extends Component {
 
 	render() {
 		return (<div id = 'codePane' className = 'borderProps'>
-			      <h3>Code</h3>
+			      <h4>Code</h4>
 				  <hr/>				
 				  <AceEditor
 					  mode="java"
