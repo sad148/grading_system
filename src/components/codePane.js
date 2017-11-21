@@ -5,7 +5,7 @@ import 'brace/mode/java';
 import 'brace/theme/monokai';
 import 'brace/theme/chrome';
 import Switch from 'react-toggle-switch';
-import "../../node_modules/react-toggle-switch/dist/css/switch.min.css"
+import "../switch.css"
 import 'brace/theme/monokai'
 import downloadIcon from '../download.png';
 import { ToastContainer, toast } from 'react-toastify';
