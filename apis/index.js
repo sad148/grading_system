@@ -13,9 +13,13 @@ app.use((req,res,next)=>{
   	next();
 })
 
-
 app.listen(3009,() => {
-	console.log("Listening on 3009");
+    console.log("Listening on 3009");
+})
+
+app.get('/download', (req,res,next) => {
+    let file = __dirname + '/apis.zip';
+    res.download(file)
 })
 
 app.post('/updateFeedback',(req,res,next) => {
