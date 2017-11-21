@@ -15,5 +15,3 @@ export default function loadData() {
 		})
 	}
 }
-
-//module.exports.loadData = loadData;
