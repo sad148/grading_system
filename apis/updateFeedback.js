@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-function updateFeedback (req,res,cb) {
+function updateFeedback (req,res,basePath,cb) {
 	let data = req.body.feedback;
 	let oldFeedback = data.oldFeedback;
 	let newFeedback = data.newFeedback;

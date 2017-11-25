@@ -8,12 +8,16 @@ import { createBrowserHistory } from 'history';
 import loadRubric from './reducers/loadRubric_reducer.js'
 import codeAndFeedbackReducer from './reducers/codeAndFeedback_reducer.js'
 import toggleRubric from './reducers/toggleRubric_reducer.js'
+import loadStudents from './reducers/loadStudents_reducer.js'
+import loadAssignmentsList from './reducers/loadAssignmentsList_reducer';
 
 const logger = createLogger({})
 
 const store = createStore(
   combineReducers({
     loadRubric,
+    loadAssignmentsList,
+    loadStudents,
     codeAndFeedbackReducer,
     toggleRubric,
     routing: routerReducer    

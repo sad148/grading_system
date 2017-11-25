@@ -28,15 +28,7 @@ button#downloadbutton {
 }
 
 .switch {
-    width:9%;
-    height:60%;
-    float:left;
-    margin-top:-3%
-}
-
-.switch-toggle {
-    width:50%;
-    height:80%
+    height:100%
 }
 
 body {
@@ -46,18 +38,28 @@ body {
   	padding: 0;
 }
 
+div#loaderDiv {
+    top: 50%;
+    left: 40%;
+    position: absolute;
+    z-index: 99999;
+}
+
+img#loader {
+    width: 65%;
+}
+
 div#grades {
     float: left;
     margin-right: -16%;
     font-weight: bold;
 }
 
-select#studDropdown {
-    width: 100%;
+select#studDropdown,
+select#assignmentsDropdown{
+    width: 50%;
     height: 70%;
     border-bottom: 0px;
-    border-right: 0px;
-    border-left: 0px;
 }
 
 .borderProps {

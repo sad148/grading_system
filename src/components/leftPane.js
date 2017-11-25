@@ -6,6 +6,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import '../../node_modules/react-toastify/dist/ReactToastify.min.css';
 import Notifications, {notify} from 'react-notify-toast';
 import SkyLight from 'react-skylight';
+import Loader from './loader.js';
+import loadStudents from '../actions/loadStudents.js';
+import Assignments from './assignments.js';
 
 var modal = {    
     width: '45%',
@@ -15,13 +18,17 @@ var modal = {
 
 class LeftPane extends Component {
 	componentWillMount = () => {
-		this.setState({guidelines:"Loading"});
+		this.setState({guidelines:<Loader />,studentsList:""});
+		this.props.dispatch(loadStudents());
 		this.props.dispatch(loadRubric());
 	}
 
 	componentWillReceiveProps = (nextProps) => {
+		console.log("inside componentWillReceiveProps")
 		let guidelines = [];
+		let studentsListArray = [];
 		let rubricData = nextProps.loadRubric;
+		let studentsList = nextProps.loadStudents;		
 		if(nextProps.rubricLoaded == true) {
 			console.log("inside nextProps",rubricData)
 			for(let i = 0;i<rubricData.length;i++) {
@@ -35,7 +42,20 @@ class LeftPane extends Component {
 					)
 			}
 		this.setState({guidelines:guidelines})
-		}		
+		}
+
+		if(nextProps.studentsLoaded == true) {
+			console.log("inside studentsList", studentsList)
+			studentsListArray.push(
+						<option selected disabled value = 'default'>Select students...</option>
+				)			
+			for(let i = 0;i<studentsList.length;i++) {
+				studentsListArray.push(
+						<option value = {studentsList[i]}>{studentsList[i]}</option>								
+					)
+			}
+			this.setState({studentsList:studentsListArray})
+		}
 	}
 
 	showFullInfo = (fullForm) => {
@@ -44,7 +64,6 @@ class LeftPane extends Component {
 	}
 
 	checkboxClicked = (rubricData, index) => {
-		console.log(index, document.getElementById(index).checked)
 		if(document.getElementById(index).checked == true) {
 			this.props.dispatch({type:"ADDRUBRIC", rubricData:rubricData, rubricId:index, rubricOperation:1})
 		} else {
@@ -54,24 +73,22 @@ class LeftPane extends Component {
 	
 	loadStudentData = () => {
 		let student = document.getElementById('studDropdown').value
-		this.setState({"student":student});
-		this.props.dispatch(loadData());
+        let assignment = document.getElementById('assignmentsDropdown').value
+        if(assignment != "default")
+		    this.props.dispatch(loadData(student, assignment));
 	}
 
 	render = () =>{
 		return(
-				<div id = 'leftPane'>
+				<div id = 'leftPane'>                    
 					<div id = 'studentsList'>
 						<div id = 'selectStudentsDiv' className = 'borderProps'>
 							<h4>Students</h4>
 							<hr/>						
 							<select id = 'studDropdown' className = 'borderProps' onChange = {this.loadStudentData}>
-								<option value = 'sad148'>sad148</option>
-								<option value = 'dig22'>dig22</option>
-								<option value = 'dab249'>dab249</option>
-								<option value = 'asb161'>asb161</option>
-								<option value = 'rar154'>rar154</option>
+								{this.state.studentsList}
 							</select>
+                            <Assignments />
 						</div>
 					</div>
 					<div id = 'rubric' className = 'borderProps'>
@@ -97,7 +114,9 @@ class LeftPane extends Component {
 const mapStateToProps = (store) => {
 	return {
 		loadRubric:store.loadRubric.loadRubric,
-		rubricLoaded:store.loadRubric.rubricLoaded
+		rubricLoaded:store.loadRubric.rubricLoaded,
+		loadStudents:store.loadStudents.loadStudents,
+		studentsLoaded:store.loadStudents.studentsLoaded
 	}
 }
 

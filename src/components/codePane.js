@@ -49,9 +49,7 @@ export default class CodePane extends Component {
                   <div style = {{"height":"3%"}}>
                       <h4>Code</h4>
                       <Switch onClick={this.toggleSwitch} on={this.state.switchTheme}/>
-                      {/*<a href = 'http://localhost:3009/download' onSuccess={this.downloadError}>*/}
-                          <button id = 'downloadbutton' onClick={this.downloadFile} title = 'Download code'>Download(.zip)</button>
-                      {/*</a>*/}
+                      <button id = 'downloadbutton' onClick={this.downloadFile} title = 'Download code'>Download(.zip)</button>
                   </div>
                   <hr/>
 	              <AceEditor

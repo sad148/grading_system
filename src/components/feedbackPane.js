@@ -37,7 +37,6 @@ class FeedbackPane extends Component {
 			}
 			this.setState({tableDiv:tableArr, displayGrade:grade})
 		} else {
-			//let grade = this.state.grade;
 			for(let i = 0;i < this.arrData.length; i++) {
 				if(nextProps.rubricId != this.arrData[i].id) {				
 					tableArr.push(

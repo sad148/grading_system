@@ -11,7 +11,7 @@ export default class App extends Component {
 		  <div id = 'topPane'>
 		  	<h3>Grading System</h3>
 		  </div>
-		  <div id='mainDiv' className="App">      	
+		  <div id='mainDiv' className="App">
 			<LeftPane />
 			<RightPane />
 		  </div>
@@ -19,5 +19,3 @@ export default class App extends Component {
 		);
 	}
 }
-
-//<input type='file' accept='.txt' id='codeInput' onChange={this.readCodeFile}></input>

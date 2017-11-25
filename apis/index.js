@@ -4,6 +4,11 @@ var bodyParser = require('body-parser');
 const updateFeedback = require('./updateFeedback.js');
 const loadStudentCode = require('./loadStudentCode.js');
 const loadRubric = require('./loadRubric.js');
+const loadStudents = require('./loadStudents.js');
+const loadAssignmentsList = require('./loadAssignmentsList.js');
+
+const basePath = 'H:/401-handin/'
+
 
 app.use(bodyParser.json());
 
@@ -17,19 +22,31 @@ app.listen(3009,() => {
     console.log("Listening on 3009");
 })
 
+app.post('/loadStudents', (req,res,next) => {
+	loadStudents.loadStudents(req,res,basePath,(response) => {
+		res.send(response);
+	})
+})
+
+app.post('/loadAssignmentsList', (req,res,next) => {
+    loadAssignmentsList.loadAssignmentsList(req,res,basePath,(response) => {
+        res.send(response);
+    })
+})
+
 app.get('/download', (req,res,next) => {
     let file = __dirname + '/apis.zip';
     res.download(file)
 })
 
 app.post('/updateFeedback',(req,res,next) => {
-	updateFeedback.updateFeedback(req,res,(response) => {
+	updateFeedback.updateFeedback(req,res,basePath,(response) => {
 		res.send(response);
 	})
 })
 
-app.get('/loadStudentCode',(req,res,next) => {
-	loadStudentCode.loadStudentCode(req,res,(response) => {
+app.post('/loadStudentCode',(req,res,next) => {
+	loadStudentCode.loadStudentCode(req,res,basePath,(response) => {
 		res.send(response);
 	})	
 })
