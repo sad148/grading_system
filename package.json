@@ -24,7 +24,8 @@
     "redux-logger": "^3.0.6",
     "redux-promise-middleware": "^4.4.2",
     "redux-thunk": "^2.2.0",
-    "superagent": "^3.7.0"
+    "superagent": "^3.7.0",
+    "zip-folder": "^1.0.0"
   },
   "scripts": {
     "babel": "babel --presets es2015 js/main.js -o build/main.bundle.js",

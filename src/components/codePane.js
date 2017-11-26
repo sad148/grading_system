@@ -32,15 +32,27 @@ export default class CodePane extends Component {
     };
 
 	downloadFile = () => {
-	    downloadFile.downloadFile((res) => {
-	        if(res) {
-                window.location.href = 'http://localhost:3009/download';
-            } else {
-                toast.error("Error in downloading", {
-                    position: toast.POSITION.TOP_CENTER
-                })
-            }
-        })
+		let student = document.getElementById('studDropdown').value
+        let assignment = document.getElementById('assignmentsDropdown').value
+        if (assignment == 'default')
+            toast.error("Please select assignment", {
+                position: toast.POSITION.TOP_CENTER
+            })
+        else if (student == 'default') {
+            toast.error("Please select student", {
+                position: toast.POSITION.TOP_CENTER
+            })
+        } else {
+		    downloadFile.downloadFile(student, assignment, (res) => {
+		        if(res) {
+	                window.location.href = 'http://localhost:3009/download/' + student + '/' + assignment;
+	            } else {
+	                toast.error("Error in downloading", {
+	                    position: toast.POSITION.TOP_CENTER
+	                })
+	            }
+	        })
+		}
     }
 
 	render() {

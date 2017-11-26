@@ -6,9 +6,9 @@ const loadStudentCode = require('./loadStudentCode.js');
 const loadRubric = require('./loadRubric.js');
 const loadStudents = require('./loadStudents.js');
 const loadAssignmentsList = require('./loadAssignmentsList.js');
+const downloadFile = require('./downloadFile.js');
 
 const basePath = 'H:/401-handin/'
-
 
 app.use(bodyParser.json());
 
@@ -34,9 +34,20 @@ app.post('/loadAssignmentsList', (req,res,next) => {
     })
 })
 
-app.get('/download', (req,res,next) => {
-    let file = __dirname + '/apis.zip';
-    res.download(file)
+app.post('/createzip', (req,res,next) => {
+    downloadFile.downloadFile(req, res, basePath, (response) => {
+    	res.send(response);
+    })
+    //let file = __dirname + '/apis.zip';
+    //res.download(file)
+})
+
+app.get('/download/:student/:assignment', (req, res, next) => {
+	let student = req.params.student
+	let assignment = req.params.assignment
+	let file = basePath + student + '/' + assignment + '/' + student +'.zip' 
+	console.log("file - -", file);
+	res.download(file);	
 })
 
 app.post('/updateFeedback',(req, res, next) => {
