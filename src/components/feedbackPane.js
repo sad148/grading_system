@@ -8,8 +8,8 @@ var updateFeedback = require('../actions/updateFeedBackApi.js');
 class FeedbackPane extends Component {
 	componentWillMount = () => {
 		this.arrData = [];
-		this.setState({openDeductions:true, openFeedback:true, tableDiv:"", feedback:"", displayGrade:100})
-	}	
+		this.setState({openDeductions:true, openFeedback:true, tableDiv:"", feedback:" ", displayGrade:100})
+	}
 
 	componentWillReceiveProps = (nextProps) => {
 		let rubricData = nextProps.rubricData
@@ -63,18 +63,38 @@ class FeedbackPane extends Component {
 	}
 
 	submitFeedback = () => {
-		let data = {
-			oldFeedback:this.state.feedback,
-			newFeedback:this.arrData,
-			grades:this.state.displayGrade
-		}
+        let student = document.getElementById('studDropdown').value
+        let assignment = document.getElementById('assignmentsDropdown').value
+        if (assignment == 'default')
+            toast.error("Please select assignment", {
+                position: toast.POSITION.TOP_CENTER
+            })
+        else if (student == 'default') {
+            toast.error("Please select student", {
+                position: toast.POSITION.TOP_CENTER
+            })
+        }
+        else {
+            var data = {
+                oldFeedback: this.state.feedback,
+                newFeedback: this.arrData,
+                grades: this.state.displayGrade,
+                student:student,
+                assignment:assignment,
+                feedbackUpdated: this.arrData.length > 0 ? true : false
+            }
+        }
 
 		updateFeedback.update(data,(res)=>{
-			if(res == 200) {
+			if(res.code == 200) {
 				toast.success("Updated Successfully!!!", {
 			    	position: toast.POSITION.TOP_CENTER
 			    })
-			}
+			} else {
+                toast.error(res.message, {
+                    position: toast.POSITION.TOP_CENTER
+                })
+            }
 		})
 	}
 

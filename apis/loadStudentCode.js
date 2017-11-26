@@ -31,7 +31,6 @@ function loadStudentCode (req,res,basePath,cb) {
                 }
 
                 let feedbackFileExists = fs.existsSync(path + '/feedback.txt');
-                console.log(path, feedbackFileExists)
                 if(feedbackFileExists) {
                     feedback = fs.readFileSync(path + '/feedback.txt', 'utf-8');
                 }

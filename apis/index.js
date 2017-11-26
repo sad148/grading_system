@@ -39,8 +39,8 @@ app.get('/download', (req,res,next) => {
     res.download(file)
 })
 
-app.post('/updateFeedback',(req,res,next) => {
-	updateFeedback.updateFeedback(req,res,basePath,(response) => {
+app.post('/updateFeedback',(req, res, next) => {
+	updateFeedback.updateFeedback(req, res, basePath,(response) => {
 		res.send(response);
 	})
 })
