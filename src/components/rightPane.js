@@ -18,6 +18,10 @@ class RightPane extends Component {
             toast.error(nextProps.loadDataErrorMessage, {
                 position: toast.POSITION.TOP_CENTER
             })
+            this.setState({
+                feedback:"Write feedback...",
+                code:"Upload code"
+            })
         } else {
             if (nextProps.cfReceived == true) {
                 this.setState({

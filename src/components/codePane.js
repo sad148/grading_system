@@ -14,11 +14,10 @@ let downloadFile = require('../actions/downloadFile.js');
 
 export default class CodePane extends Component {
 	componentWillMount = () =>{
-		this.setState({codeData:"", switchTheme:false});
+		this.setState({codeData:"", switchTheme:true});
 	}
 
 	componentWillReceiveProps = (nextProps) => {
-		console.log("componentWillReceiveProps",nextProps);
 		this.setState({
 			codeData:nextProps.codeData
 		})
