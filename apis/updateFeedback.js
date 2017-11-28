@@ -13,7 +13,7 @@ function updateFeedback (req, res, basePath, cb) {
     let splitFeedback = oldFeedback.split('\n');
 	let gradesUpdated = false;
 
-	if (feedbackUpdated == true) {
+	if (feedbackUpdated == false) {
 	    cb({
             code:200,
             message:"Updated successfully"
