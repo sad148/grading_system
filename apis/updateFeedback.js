@@ -13,7 +13,7 @@ function updateFeedback (req, res, basePath, cb) {
     let splitFeedback = oldFeedback.split('\n');
 	let gradesUpdated = false;
 
-	if (feedbackUpdated == true) {
+	if (feedbackUpdated == false) {
 	    cb({
             code:200,
             message:"Updated successfully"
@@ -57,8 +57,8 @@ function updateFeedback (req, res, basePath, cb) {
                         }
                     }
 
-                    let pathArr = [path, codePath]
-                    async.map(pathArr, (filePath, cb1) => {
+                    let pathArr = [path, codePath]		//file paths
+                    async.map(pathArr, (filePath, cb1) => {		//filePath = iteratee
                         fs.writeFile(filePath + '/feedback.txt', feedback, (err) => {
                             if (err) {
                                 cb({
