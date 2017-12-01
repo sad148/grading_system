@@ -1,5 +1,6 @@
 const fs = require('fs');
 var zipFolder = require('zip-folder');
+var shell = require('shelljs');
 
 function downloadFile(req, res, basePath, cb) {
     let student = req.body.student;
@@ -21,6 +22,7 @@ function downloadFile(req, res, basePath, cb) {
                 }
             }
             console.log(path)
+            shell.cp('/Users/Ashutosh/WebstormProjects/grading_system/apis/runn.sh', path);
             zipFolder(path, basePath + student + '/' + assignment + '/' + student + '.zip' ,(err) => {
                 if(err) {
                     cb({

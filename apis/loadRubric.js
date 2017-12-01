@@ -1,7 +1,7 @@
 const fs = require('fs');
 
-function loadRubric(req,res,cb) {	
-	fs.readFile('H:/Rubrik.txt','utf-8',(err,res) => {
+function loadRubric(req,res,cb) {
+	fs.readFile('/Users/Ashutosh/Desktop/Rubrik.txt','utf-8',(err,res) => {
 		if(err) {
 			cb({
 				code:400,
