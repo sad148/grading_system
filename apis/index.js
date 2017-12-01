@@ -21,6 +21,7 @@ app.use((req,res,next)=>{
 app.listen(3009,() => {
     console.log("Listening on 3009");
 })
+console.log("after listen");
 
 app.post('/loadStudents', (req,res,next) => {
 	loadStudents.loadStudents(req,res,basePath,(response) => {
