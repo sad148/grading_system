@@ -73,7 +73,10 @@ function updateFeedback (req, res, basePath, cb) {
                     }, (cb1) => {
                         cb({
                             code: 200,
-                            message: "Success"
+                            message: "Success",
+                            data:{
+                                feedback:feedback
+                            }
                         })
                     })
                 }

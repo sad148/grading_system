@@ -87,6 +87,7 @@ class FeedbackPane extends Component {
 
 		updateFeedback.update(data,(res)=>{
 			if(res.code == 200) {
+				document.getElementById('feedback').value = res.data.feedback;
 				toast.success("Updated Successfully!!!", {
 			    	position: toast.POSITION.TOP_CENTER
 			    })
