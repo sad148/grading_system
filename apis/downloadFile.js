@@ -21,8 +21,7 @@ function downloadFile(req, res, basePath, cb) {
                     break;
                 }
             }
-            console.log(path)
-            shell.cp('/Users/Ashutosh/WebstormProjects/grading_system/apis/runn.sh', path);
+            shell.cp('./runn.sh', path);
             zipFolder(path, basePath + student + '/' + assignment + '/' + student + '.zip' ,(err) => {
                 if(err) {
                     cb({
