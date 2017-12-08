@@ -7,7 +7,6 @@ import 'brace/theme/chrome';
 import Switch from 'react-toggle-switch';
 import "../switch.css"
 import 'brace/theme/monokai'
-//import downloadIcon from '../download.png';
 import { ToastContainer, toast } from 'react-toastify';
 import '../../node_modules/react-toastify/dist/ReactToastify.min.css';
 let downloadFile = require('../actions/downloadFile.js');

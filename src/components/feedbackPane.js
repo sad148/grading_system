@@ -8,7 +8,7 @@ var updateFeedback = require('../actions/updateFeedBackApi.js');
 class FeedbackPane extends Component {
 	componentWillMount = () => {
 		this.arrData = [];
-		this.setState({openDeductions:true, openFeedback:true, tableDiv:"", feedback:" ", displayGrade:100})
+		this.setState({tableDiv:"", feedback:" ", displayGrade:100})
 	}
 
 	componentWillReceiveProps = (nextProps) => {
@@ -16,6 +16,7 @@ class FeedbackPane extends Component {
 		let tableArr = [];
 		let grade = this.state.displayGrade;
 
+		// Add selected guideline from deductions view
 		if(nextProps.rubricOperation == 1) {
 			let x = document.getElementById("deductionsTable").rows.length;			
 			if(x != 0) {
@@ -31,12 +32,9 @@ class FeedbackPane extends Component {
 						<td>{rubricData.fullForm} (<label style = {{color:"red"}}>{rubricData.grade}</label>)</td>
 					</tr>
 			)
-			
-			if(this.state.openDeductions == false) {
-				this.setState({openDeductions:true})
-			}
+
 			this.setState({tableDiv:tableArr, displayGrade:grade})
-		} else {
+		} else if(nextProps.rubricOperation == 0){  //Remove selected guideline from deductions view
 			for(let i = 0;i < this.arrData.length; i++) {
 				if(nextProps.rubricId != this.arrData[i].id) {				
 					tableArr.push(
@@ -45,14 +43,16 @@ class FeedbackPane extends Component {
 						</tr>
 					)
 				} else {
-					console.log("before ",grade,parseInt(this.arrData[i].grade))
 					grade = grade - parseInt(this.arrData[i].grade)
-					console.log("after ",grade,parseInt(this.arrData[i].grade));
 				}				
 			}
 			this.setState({tableDiv:tableArr, displayGrade:grade})
 			this.arrData = _.pullAllBy(this.arrData,[{id:nextProps.rubricId}],'id');
-		}
+		} else if(nextProps.rubricOperation == 2) { // Reset deductions view when student or assignment changes
+            this.arrData = [];
+            tableArr = [];
+            this.setState({tableDiv:""})
+        }
 
 		this.setState({feedback:nextProps.feedback})
 	}

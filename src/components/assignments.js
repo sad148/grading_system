@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import loadAssignmentsList from '../actions/loadAssignmentsList.js'
 import loadData from '../actions/loadCodeandFeedback';
 import {connect} from 'react-redux';
+import store from "../store";
 
 class Assignments extends Component {
     componentWillMount = () => {
@@ -29,8 +30,11 @@ class Assignments extends Component {
     loadStudentData = () => {
         let student = document.getElementById('studDropdown').value
         let assignment = document.getElementById('assignmentsDropdown').value
-        if(student != "default")
+        if(student != "default") {
+            this.props.dispatch({type:"RUBRICDATA_RECEIVED",payload:store.getState().loadRubric.loadRubric});
+            this.props.dispatch({type:"RESETRUBRIC"});
             this.props.dispatch(loadData(student, assignment));
+        }
     }
 
     render = () => {

@@ -1,3 +1,5 @@
+import store from "../store";
+
 var request = require('superagent');
 
 export default function loadData(student, assignment) {
@@ -10,9 +12,10 @@ export default function loadData(student, assignment) {
 				console.log("Error",err);
 			}
 			else {
-				console.log("Response",res.body.data);
-				if(res.body.code == 200)
-				    dispatch({type:"CODEFEEDBACKRECEIVED" ,feedback:res.body.data.feedback, code:res.body.data.code});
+				if(res.body.code == 200) {
+				    dispatch({type:"CODERECEIVED" , code:res.body.data.code});
+				    dispatch({type:"FEEDBACKRECEIVED" ,feedback:res.body.data.feedback});
+                }
 				else
 				    dispatch({type:"ASSIGNMENT_FOLDER_NOT_FOUND"});
 			}
