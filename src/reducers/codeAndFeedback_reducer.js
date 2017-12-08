@@ -1,11 +1,10 @@
 const codeAndFeedbackReducer = (state = { loadFeedback:"", loadCode:"", cfReceived:false, loadDataError:false, loadDataErrorMessage:"" }, action ) => {
 	switch(action.type) {
-		case 'CODEFEEDBACKRECEIVED':
+		case 'CODERECEIVED':
 			state = 
                 {
                     ...state,
                     cfReceived:true,
-                    loadFeedback:action.feedback,
                     loadCode:action.code,
                     loadDataError:false,
                     loadDataErrorMessage:""
@@ -21,6 +20,14 @@ const codeAndFeedbackReducer = (state = { loadFeedback:"", loadCode:"", cfReceiv
                     loadDataError:true,
                     loadDataErrorMessage:"Assignment folder not found"
                 }
+            break;
+        case 'FEEDBACKRECEIVED':
+            state = 
+                {
+                    ...state,
+                    loadFeedback:action.feedback
+                }
+
 	}
 	return state;
 }
