@@ -8,12 +8,11 @@ const loadRubric = (state = { loadRubric: "", rubricLoaded: false, displayRubric
             }
             break;
         case 'DISPLAY_RUBRIC' :
-         	state ={
+         	state = {
          		...state,
          		displayRubric:true,
          		rubricLoaded:false
          	}
-         	break;
     }
     return state;
 }

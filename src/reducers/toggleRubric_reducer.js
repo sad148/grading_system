@@ -17,6 +17,16 @@ const toggleRubric = (state = { rubricId:"", rubricData:"", rubricOperation:"" }
 				rubricOperation:0
 			}
 			break;
+
+        case 'RESETRUBRIC':
+            state =
+            {
+                ...state,
+                rubricOperation:2,
+                rubricId:"",
+                rubricData:""
+            }
+            break;
 	}
 	return state;
 }
