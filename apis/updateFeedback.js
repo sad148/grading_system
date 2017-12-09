@@ -20,7 +20,11 @@ function updateFeedback (req, res, basePath, cb) {
         })
     } else {
         for (let i = 0; i < splitFeedback.length; i++) {
-            if (splitFeedback[i].includes('#READER:')) {
+            if (i == 0) {
+                let insertGrades = splitFeedback[0].split(',');
+                insertGrades[1] = grades;
+                splitFeedback[0] = insertGrades[0] + ',' + insertGrades[1] + ',' + insertGrades[2];
+            } else if (splitFeedback[i].includes('#READER:')) {
                 if (gradesUpdated == false) {
                     splitFeedback.splice(i + 1, 0, "Grades - " + grades);
                     gradesUpdated = true;

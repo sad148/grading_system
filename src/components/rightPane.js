@@ -10,7 +10,7 @@ class RightPane extends Component {
 		this.setState({
 				feedback:"",
 				code:"",
-                grades:100
+                grades:0
 		})
 	}
 

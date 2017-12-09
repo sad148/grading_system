@@ -8,24 +8,22 @@ var updateFeedback = require('../actions/updateFeedBackApi.js');
 class FeedbackPane extends Component {
 	componentWillMount = () => {
 		this.arrData = [];
-		this.setState({tableDiv:"", feedback:" ", displayGrade:100})
+		this.setState({tableDiv:"", feedback:" ", displayGrade:0})
 	}
 
 	componentWillReceiveProps = (nextProps) => {
 		let rubricData = nextProps.rubricData
 		let tableArr = [];
-		let grade = nextProps.grades;
-    console.log(nextProps);
+		this.state.displayGrade = parseInt(this.state.displayGrade);
 		// Add selected guideline from deductions view
 		if(nextProps.rubricOperation == 1) {
-		    grade = this.state.displayGrade;
-			let x = document.getElementById("deductionsTable").rows.length;			
+			let x = document.getElementById("deductionsTable").rows.length;
 			if(x != 0) {
 				tableArr = this.state.tableDiv
 			} 
 
-			rubricData.id = nextProps.rubricId
-			grade = grade + parseInt(rubricData.grade)
+			rubricData.id = nextProps.rubricId;
+			this.state.displayGrade += parseInt(rubricData.grade);
 			this.arrData.push(rubricData);
 
 			tableArr.push(
@@ -34,9 +32,8 @@ class FeedbackPane extends Component {
 					</tr>
 			)
 
-			this.setState({tableDiv:tableArr, displayGrade:grade})
+			this.setState({tableDiv:tableArr, displayGrade:this.state.displayGrade})
 		} else if(nextProps.rubricOperation == 0){  //Remove selected guideline from deductions view
-            grade = this.state.displayGrade;
             for(let i = 0;i < this.arrData.length; i++) {
 				if(nextProps.rubricId != this.arrData[i].id) {				
 					tableArr.push(
@@ -45,18 +42,18 @@ class FeedbackPane extends Component {
 						</tr>
 					)
 				} else {
-					grade = grade - parseInt(this.arrData[i].grade)
+					this.state.displayGrade -= parseInt(this.arrData[i].grade)
 				}				
 			}
-			this.setState({tableDiv:tableArr, displayGrade:grade})
+			this.setState({tableDiv:tableArr, displayGrade:this.state.displayGrade});
 			this.arrData = _.pullAllBy(this.arrData,[{id:nextProps.rubricId}],'id');
 		} else if(nextProps.rubricOperation == 2) { // Reset deductions view when student or assignment changes
             this.arrData = [];
             tableArr = [];
             this.setState({tableDiv:""})
+			this.setState({displayGrade:nextProps.grades});
         }
-
-		this.setState({feedback:nextProps.feedback, displayGrade:nextProps.grades})
+		this.setState({feedback:nextProps.feedback})
 	}
 
 	updateTextarea = () => {
