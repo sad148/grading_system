@@ -8,7 +8,7 @@ const loadStudents = require('./loadStudents.js');
 const loadAssignmentsList = require('./loadAssignmentsList.js');
 const downloadFile = require('./downloadFile.js');
 
-const basePath = 'H:/401-handin/'
+const basePath = __dirname + '/401-handin/'
 
 app.use(bodyParser.json());
 
