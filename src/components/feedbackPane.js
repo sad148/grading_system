@@ -14,10 +14,11 @@ class FeedbackPane extends Component {
 	componentWillReceiveProps = (nextProps) => {
 		let rubricData = nextProps.rubricData
 		let tableArr = [];
-		let grade = this.state.displayGrade;
-
+		let grade = nextProps.grades;
+    console.log(nextProps);
 		// Add selected guideline from deductions view
 		if(nextProps.rubricOperation == 1) {
+		    grade = this.state.displayGrade;
 			let x = document.getElementById("deductionsTable").rows.length;			
 			if(x != 0) {
 				tableArr = this.state.tableDiv
@@ -35,7 +36,8 @@ class FeedbackPane extends Component {
 
 			this.setState({tableDiv:tableArr, displayGrade:grade})
 		} else if(nextProps.rubricOperation == 0){  //Remove selected guideline from deductions view
-			for(let i = 0;i < this.arrData.length; i++) {
+            grade = this.state.displayGrade;
+            for(let i = 0;i < this.arrData.length; i++) {
 				if(nextProps.rubricId != this.arrData[i].id) {				
 					tableArr.push(
 						<tr align = "left">
@@ -54,7 +56,7 @@ class FeedbackPane extends Component {
             this.setState({tableDiv:""})
         }
 
-		this.setState({feedback:nextProps.feedback})
+		this.setState({feedback:nextProps.feedback, displayGrade:nextProps.grades})
 	}
 
 	updateTextarea = () => {

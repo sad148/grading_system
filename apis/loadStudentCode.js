@@ -6,6 +6,7 @@ function loadStudentCode (req,res,basePath,cb) {
 	let codePath = basePath + student + '/' + assignment;
     let code = "";
     let feedback = "";
+    let grades = 100;
     let path = false;
     fs.readdir(codePath, (err, folders) => {
         if(err) {
@@ -40,6 +41,10 @@ function loadStudentCode (req,res,basePath,cb) {
                     let feedbackFileExists = fs.existsSync(path + '/feedback.txt');
                     if(feedbackFileExists) {
                         feedback = fs.readFileSync(path + '/feedback.txt', 'utf-8');
+                        grades = feedback.split('\n');
+                        grades = grades[0];
+                        grades = grades.split(',');
+                        grades = grades[1]
                     }
 
                     res.send({
@@ -47,7 +52,8 @@ function loadStudentCode (req,res,basePath,cb) {
                         message:"Success",
                         data:{
                             code:code,
-                            feedback:feedback
+                            feedback:feedback,
+                            grades:grades
                         }
                     })
                 })

@@ -27,6 +27,14 @@ const codeAndFeedbackReducer = (state = { loadFeedback:"", loadCode:"", cfReceiv
                     ...state,
                     loadFeedback:action.feedback
                 }
+            break;
+        case 'GRADESRECEIVED':
+            state =
+                {
+                    ...state,
+                    loadGrades:action.grades
+                }
+            break;
 
 	}
 	return state;

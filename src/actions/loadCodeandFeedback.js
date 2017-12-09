@@ -15,6 +15,7 @@ export default function loadData(student, assignment) {
 				if(res.body.code == 200) {
 				    dispatch({type:"CODERECEIVED" , code:res.body.data.code});
 				    dispatch({type:"FEEDBACKRECEIVED" ,feedback:res.body.data.feedback});
+				    dispatch({type:"GRADESRECEIVED", grades:res.body.data.grades});
                 }
 				else
 				    dispatch({type:"ASSIGNMENT_FOLDER_NOT_FOUND"});

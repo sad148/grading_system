@@ -9,7 +9,8 @@ class RightPane extends Component {
 	componentWillMount = () => {
 		this.setState({
 				feedback:"",
-				code:""
+				code:"",
+                grades:100
 		})
 	}
 
@@ -26,7 +27,8 @@ class RightPane extends Component {
             if (nextProps.cfReceived == true) {
                 this.setState({
                     feedback: nextProps.feedback,
-                    code: nextProps.code
+                    code: nextProps.code,
+                    grades:nextProps.grades
                 })
             }
         }
@@ -35,8 +37,8 @@ class RightPane extends Component {
 	render = () => {
 		return(
 			<div id = 'rightPane'>
-				<CodePane codeData={this.state.code}/>
-				<FeedbackPane feedback={this.state.feedback}/>
+				<CodePane codeData = {this.state.code}/>
+				<FeedbackPane feedback = {this.state.feedback} grades = {this.state.grades}/>
                 <ToastContainer
                     type="error"
                     autoClose={3000}
@@ -52,6 +54,7 @@ const mapStateToProps = (store) => {
 	return {
 		cfReceived:store.codeAndFeedbackReducer.cfReceived,
 		feedback:store.codeAndFeedbackReducer.loadFeedback,
+        grades:store.codeAndFeedbackReducer.loadGrades,
 		code:store.codeAndFeedbackReducer.loadCode,
         loadDataError:store.codeAndFeedbackReducer.loadDataError,
         loadDataErrorMessage:store.codeAndFeedbackReducer.loadDataErrorMessage
