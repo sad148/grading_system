@@ -16,7 +16,10 @@ function updateFeedback (req, res, basePath, cb) {
 	if (feedbackUpdated == false) {
 	    cb({
             code:200,
-            message:"Updated successfully"
+            message:"Updated successfully",
+            data:{
+                feedback:oldFeedback
+            }
         })
     } else {
 	    let readerIndex = [];
