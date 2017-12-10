@@ -2,9 +2,17 @@ import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import loadRubric from "../actions/loadRubric";
 import Loader from './loader.js';
+import SkyLight from 'react-skylight';
+
+var modal = {
+    width: '45%',
+    height: '18%',
+    borderRadius: '15px'
+};
+
 class Rubric extends Component {
     componentWillMount = () => {
-        this.setState({guidelines:<Loader />});
+        this.setState({guidelines:<Loader />, fullForm:""});
         this.props.dispatch(loadRubric());
         this.counter = 0;
     }
@@ -28,12 +36,6 @@ class Rubric extends Component {
         }
     }
 
-    shouldComponentUpdate = (nextProps) => {
-        if(nextProps.rubricLoaded == false)
-            return false;
-        return true;
-    }
-
     checkboxClicked = (rubricData, index) => {
         if(document.getElementById(index).checked == true) {
             this.props.dispatch({type:"ADDRUBRIC", rubricData:rubricData, rubricId:index, rubricOperation:1})
@@ -43,6 +45,7 @@ class Rubric extends Component {
     }
 
     showFullInfo = (fullForm) => {
+        console.log(fullForm);
         this.simpleDialog.show();
         this.setState({fullForm:fullForm})
     }
@@ -55,6 +58,13 @@ class Rubric extends Component {
                 <div id = 'guidelines'>
                     {this.state.guidelines}
                 </div>
+                <SkyLight dialogStyles = {modal} hideOnOverlayClicked ref = {ref => this.simpleDialog = ref}>
+                    <div>
+                        <h4>Description</h4>
+                        <hr />
+                        {this.state.fullForm}
+                    </div>
+                </SkyLight>
             </div>
         )
     }
