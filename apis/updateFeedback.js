@@ -19,7 +19,10 @@ function updateFeedback (req, res, basePath, cb) {
             message:"Updated successfully"
         })
     } else {
+	    let readerIndex = [];
+	    let closeReaderIndex;
         for (let i = 0; i < splitFeedback.length; i++) {
+            console.log("previous",i,splitFeedback[i]);
             if (i == 0) {
                 let insertGrades = splitFeedback[0].split(',');
                 insertGrades[1] = grades;
@@ -33,9 +36,14 @@ function updateFeedback (req, res, basePath, cb) {
                     let string = newFeedback[j].grade + '\xa0' + newFeedback[j].fullForm;
                     splitFeedback.splice(i + 2, 0, string);
                 }
-                splitFeedback.splice(i + newFeedback.length + 2, 0, "</#READER>");
-                break;
+                closeReaderIndex = i + newFeedback.length + 2;
+            } else if (splitFeedback[i].includes('</#READER>')) {
+                readerIndex.push(i);
             }
+        }
+
+        if(readerIndex.length == 0) {
+            splitFeedback[closeReaderIndex] = "</#READER>";
         }
 
         if (gradesUpdated == false) {
