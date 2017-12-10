@@ -32,25 +32,24 @@ class Feedback extends Component {
                 oldFeedback: this.state.feedback,
                 newFeedback: this.props.arrData,
                 grades: this.props.displayGrade,
-                student:student,
-                assignment:assignment,
+                student: student,
+                assignment: assignment,
                 feedbackUpdated: this.props.arrData.length > 0 ? true : false
             }
             console.log(data);
+            updateFeedback.update(data, (res) => {
+                if (res.code == 200) {
+                    this.props.dispatch({type: "FEEDBACKRECEIVED", feedback: res.data.feedback});
+                    toast.success("Updated Successfully!!!", {
+                        position: toast.POSITION.TOP_CENTER
+                    })
+                } else {
+                    toast.error(res.message, {
+                        position: toast.POSITION.TOP_CENTER
+                    })
+                }
+            })
         }
-
-        updateFeedback.update(data,(res)=>{
-            if(res.code == 200) {
-                this.props.dispatch({type:"FEEDBACKRECEIVED", feedback:res.data.feedback});
-                toast.success("Updated Successfully!!!", {
-                    position: toast.POSITION.TOP_CENTER
-                })
-            } else {
-                toast.error(res.message, {
-                    position: toast.POSITION.TOP_CENTER
-                })
-            }
-        })
     }
 
     render = () => {
@@ -60,7 +59,7 @@ class Feedback extends Component {
                     <h4>Feedback</h4>
                     <hr/>
                     {/*<Textarea value = {this.state.feedback} width = "100%" />*/}
-                    <textarea id='feedback' placeholder='Write feedback' value = {this.state.feedback}></textarea>
+                    <textarea id='feedback' placeholder='Write feedback' disabled value = {this.state.feedback}></textarea>
                 </div>
                 <div id = 'submit'>
                     <button id = 'submitButton' onClick = {this.submitFeedback}>Submit</button>
