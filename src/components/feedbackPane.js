@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { ToastContainer, toast } from 'react-toastify';
-import '../../node_modules/react-toastify/dist/ReactToastify.min.css';
+import Feedback from './feedback.js'
+
 var _ = require('lodash');
-var updateFeedback = require('../actions/updateFeedBackApi.js');
 
 class FeedbackPane extends Component {
 	componentWillMount = () => {
@@ -53,54 +52,11 @@ class FeedbackPane extends Component {
             this.setState({tableDiv:""})
 			this.setState({displayGrade:nextProps.grades});
         }
-		this.setState({feedback:nextProps.feedback})
-	}
-
-	updateTextarea = () => {
-		let val = document.getElementById('feedback').value
-		this.setState({feedback:val})
-	}
-
-	submitFeedback = () => {
-        let student = document.getElementById('studDropdown').value
-        let assignment = document.getElementById('assignmentsDropdown').value
-        if (assignment == 'default')
-            toast.error("Please select assignment", {
-                position: toast.POSITION.TOP_CENTER
-            })
-        else if (student == 'default') {
-            toast.error("Please select student", {
-                position: toast.POSITION.TOP_CENTER
-            })
-        }
-        else {
-            var data = {
-                oldFeedback: this.state.feedback,
-                newFeedback: this.arrData,
-                grades: this.state.displayGrade,
-                student:student,
-                assignment:assignment,
-                feedbackUpdated: this.arrData.length > 0 ? true : false
-            }
-        }
-
-		updateFeedback.update(data,(res)=>{
-			if(res.code == 200) {
-				document.getElementById('feedback').value = res.data.feedback;
-				toast.success("Updated Successfully!!!", {
-			    	position: toast.POSITION.TOP_CENTER
-			    })
-			} else {
-                toast.error(res.message, {
-                    position: toast.POSITION.TOP_CENTER
-                })
-            }
-		})
 	}
 
 	render() {
 		return (<div id = 'feedbackSubmitDiv'>
-					<div id = 'feedbackPane'>
+					<div id = 'deductionsMainDiv'>
 						<div id = 'deductions' className = 'borderProps'>
 							<h4>Deductions</h4>
 							<hr/>
@@ -112,25 +68,12 @@ class FeedbackPane extends Component {
 				        	 		</table>
 				        	 	</div>
 						</div>
-						<div id = 'feedbackDiv' className = 'borderProps'>
-							<h4>Feedback</h4>
-							<hr/>
-							<textarea id='feedback' placeholder='Write feedback' value = {this.state.feedback} onChange = {() => this.updateTextarea()}></textarea>
-	        	 		</div>	        	 	
-		    		</div>
-		    		<div id = 'submit'>
-		        		<button id = 'submitButton' onClick = {this.submitFeedback}>Submit</button>
-		        		<div id = 'grades'>
-		        			<label>Grade:</label><label style={{color:"red"}}>{this.state.displayGrade}</label>
-		        		</div>
-		        	</div>
-		        	<ToastContainer 
-			          type="success"
-			          autoClose={3000}			          
-			          closeOnClick
-			          hideProgressBar		          
-			        />
-		        </div>
+					</div>
+                <Feedback arrData = {this.arrData} displayGrade = {this.state.displayGrade}/>
+                <div id = 'grades'>
+                    <label>Grade:</label><label style={{color:"red"}}>{this.state.displayGrade}</label>
+                </div>
+			</div>
 	    		)
 	}
 }

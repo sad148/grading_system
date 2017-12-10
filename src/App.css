@@ -53,6 +53,7 @@ div#grades {
     float: left;
     margin-right: -16%;
     font-weight: bold;
+    margin-top: -4%;
 }
 
 select#studDropdown,
@@ -166,7 +167,7 @@ button.more:visited {
 div#deductions {
     width: 98%;
     margin-bottom: 1%;
-    height:38%;
+    height:100%;
 }
 
 div#deductionsTableDiv {
@@ -178,17 +179,22 @@ table#deductionsTable {
     font-size: 13px;
 }
 
-div#feedbackPane{
-  height: 100%;  
+div#feedback {
+    height:68%;
+    margin-top: 3%;
+}
+
+div#deductionsMainDiv{
+  height: 35%;
 }
 
 div#feedbackDiv {
 	width:98%;
-	height:60%;	
+	height:95%;
 }
 
 div#submit {
-    height: 50%;
+    /*height: 50%;*/
     margin-top: 1%;
 }
 

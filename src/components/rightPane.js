@@ -53,7 +53,6 @@ class RightPane extends Component {
 const mapStateToProps = (store) => {
 	return {
 		cfReceived:store.codeAndFeedbackReducer.cfReceived,
-		feedback:store.codeAndFeedbackReducer.loadFeedback,
         grades:store.codeAndFeedbackReducer.loadGrades,
 		code:store.codeAndFeedbackReducer.loadCode,
         loadDataError:store.codeAndFeedbackReducer.loadDataError,
