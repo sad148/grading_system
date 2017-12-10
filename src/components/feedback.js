@@ -67,7 +67,7 @@ class Feedback extends Component {
                 </div>
                 <ToastContainer
                     type="success"
-                    autoClose={3000}
+                    autoClose={1500}
                     closeOnClick
                     hideProgressBar
                 />

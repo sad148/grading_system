@@ -2,18 +2,11 @@ import React,{Component} from 'react';
 import { connect } from 'react-redux'
 import loadData from '../actions/loadCodeandFeedback.js'
 import '../../node_modules/react-toastify/dist/ReactToastify.min.css';
-import Notifications, {notify} from 'react-notify-toast';
-import SkyLight from 'react-skylight';
 import loadStudents from '../actions/loadStudents.js';
 import Assignments from './assignments.js';
 import Rubric from './rubric.js';
 import store from '../store.js';
 
-var modal = {    
-    width: '45%',
-    height: '18%',
-    borderRadius: '15px'
-};
 
 class LeftPane extends Component {
 	componentWillMount = () => {
@@ -62,14 +55,6 @@ class LeftPane extends Component {
 						</div>
 					</div>
                     <Rubric />
-					<Notifications />
-					<SkyLight dialogStyles = {modal} hideOnOverlayClicked ref = {ref => this.simpleDialog = ref}>
-						<div>
-							<h4>Description</h4>
-							<hr />
-							{this.state.fullForm}	
-						</div>			       
-			        </SkyLight>
 				</div>
 			)
 	}
