@@ -28,12 +28,6 @@ class Rubric extends Component {
         }
     }
 
-    shouldComponentUpdate = (nextProps) => {
-        if(nextProps.rubricLoaded == false)
-            return false;
-        return true;
-    }
-
     checkboxClicked = (rubricData, index) => {
         if(document.getElementById(index).checked == true) {
             this.props.dispatch({type:"ADDRUBRIC", rubricData:rubricData, rubricId:index, rubricOperation:1})
