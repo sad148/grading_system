@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { ToastContainer, toast } from 'react-toastify';
 import '../../node_modules/react-toastify/dist/ReactToastify.min.css';
-import store from '../store.js'
-import Textarea from "react-textarea-autosize";
 
 var updateFeedback = require('../actions/updateFeedBackApi.js');
 
