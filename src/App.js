@@ -5,6 +5,9 @@ import LeftPane from './components/leftPane.js'
 import RightPane from './components/rightPane.js'
 
 export default class App extends Component {
+	componentWillMount = () => {
+        sessionStorage.setItem('apiurl', 'http://localhost:3009/');
+    }
 	render = () => {
 		return (
 		  <div id='mainDiv' className="App">

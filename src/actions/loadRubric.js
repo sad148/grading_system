@@ -3,8 +3,9 @@ var request = require('superagent');
 export default function loadRubric() {
 	return function (dispatch) {
 	console.log("inside loadRubric")
+	let apiUrl = sessionStorage.getItem('apiurl');
 	request
-		.get('http://192.168.99.100:49160/loadRubric')
+		.get(apiUrl + 'loadRubric')
         .set('Content-Type', 'application/json')
 		.end((err,res) => {
 			if(err) {

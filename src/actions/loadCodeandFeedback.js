@@ -4,8 +4,9 @@ var request = require('superagent');
 
 export default function loadData(student, assignment) {
 	return function(dispatch) {
+        let apiUrl = sessionStorage.getItem('apiurl');
 		request
-		.post('http://localhost:3009/loadStudentCode')
+		.post(apiUrl + 'loadStudentCode')
 		.set('Content-Type', 'application/json')
 		.send({student:student, assignment:assignment})
 		.end((err,res) => {
