@@ -147,6 +147,7 @@ div#topPane {
     margin-bottom: 7%;
     height: 23px;
 	background:white;
+    cursor: not-allowed;
 }
 
 button.more {
@@ -216,6 +217,8 @@ button#submitButton {
 textarea#feedback {
     font-size: 12px;
     resize: none;
+    cursor: not-allowed;
+    background: transparent;
     resize: none;
     width: 99%;
     border:0px;

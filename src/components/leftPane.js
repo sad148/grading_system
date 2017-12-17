@@ -46,8 +46,10 @@ class LeftPane extends Component {
 				<div id = 'leftPane'>                    
 					<div id = 'studentsList'>
 						<div id = 'selectStudentsDiv' className = 'borderProps'>
-							<h4>Students</h4>
-							<hr/>						
+							<div id = 'heading'>
+								<h4>Students</h4>
+								<hr/>
+							</div>
 							<select id = 'studDropdown' className = 'borderProps' onChange = {this.loadStudentData}>
 								{this.state.studentsList}
 							</select>

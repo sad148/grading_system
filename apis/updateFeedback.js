@@ -25,7 +25,6 @@ function updateFeedback (req, res, basePath, cb) {
 	    let readerIndex = [];
 	    let closeReaderIndex;
         for (let i = 0; i < splitFeedback.length; i++) {
-            console.log("previous",i,splitFeedback[i]);
             if (i == 0) {
                 let insertGrades = splitFeedback[0].split(',');
                 insertGrades[1] = grades;

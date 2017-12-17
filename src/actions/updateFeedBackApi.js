@@ -1,8 +1,10 @@
 var request = require('superagent');
 
 export function update(value,cb) {
+    let apiUrl = sessionStorage.getItem('apiurl');
 	request
-		.post('http://localhost:3009/updateFeedback')
+		.post(apiUrl + 'updateFeedback')
+		.set('Content-Type', 'application/json')
 		.send({feedbackData:value})
 		.end((err,res) => {
 			if(err) {

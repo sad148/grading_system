@@ -21,7 +21,7 @@ function downloadFile(req, res, basePath, cb) {
                     break;
                 }
             }
-            shell.cp('./runn.sh', path);
+            shell.cp(__dirname + '/runn.sh', path);
             zipFolder(path, basePath + student + '/' + assignment + '/' + student + '.zip' ,(err) => {
                 if(err) {
                     cb({
