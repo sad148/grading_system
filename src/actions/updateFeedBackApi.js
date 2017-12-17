@@ -2,7 +2,8 @@ var request = require('superagent');
 
 export function update(value,cb) {
 	request
-		.post('http://localhost:3009/updateFeedback')
+		.post('http://192.168.99.100:49160/updateFeedback')
+		.set('Content-Type', 'application/json')
 		.send({feedbackData:value})
 		.end((err,res) => {
 			if(err) {

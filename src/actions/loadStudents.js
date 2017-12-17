@@ -4,7 +4,8 @@ export default function loadStudents() {
 	return function (dispatch) {
 	console.log("inside loadStudents")
 	request
-		.post('http://localhost:3009/loadStudents')
+		.post('http://192.168.99.100:49160/loadStudents')
+        .set('Content-Type', 'application/json')
 		.send({grader:"grader1"})
 		.end((err,res) => {
 			if(err) {

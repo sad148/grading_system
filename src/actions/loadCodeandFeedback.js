@@ -6,7 +6,8 @@ export default function loadData(student, assignment) {
 	return function(dispatch) {
 		request
 		.post('http://localhost:3009/loadStudentCode')
-        .send({student:student, assignment:assignment})
+		.set('Content-Type', 'application/json')
+		.send({student:student, assignment:assignment})
 		.end((err,res) => {
 			if(err) {
 				console.log("Error",err);
