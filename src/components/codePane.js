@@ -56,8 +56,8 @@ export default class CodePane extends Component {
 
 	render() {
 		return (<div id = 'codePane' className = 'borderProps'>
-                  <div style = {{"height":"3%"}}>
-                      <h4>Code</h4>
+            	  <h4>Code</h4>
+                  <div style = {{"marginTop":"1%"}}>
                       <Switch onClick={this.toggleSwitch} on={this.state.switchTheme}/>
                       <button id = 'downloadbutton' onClick={this.downloadFile} title = 'Download code'>Download(.zip)</button>
                   </div>
