@@ -44,7 +44,8 @@ export default class CodePane extends Component {
         } else {
 		    downloadFile.downloadFile(student, assignment, (res) => {
 		        if(res) {
-	                window.location.href = 'http://localhost:3009/download/' + student + '/' + assignment;
+                    let apiUrl = sessionStorage.getItem('apiurl');
+                    window.location.href = apiUrl + 'download/' + student + '/' + assignment;
 	            } else {
 	                toast.error("Error in downloading", {
 	                    position: toast.POSITION.TOP_CENTER
