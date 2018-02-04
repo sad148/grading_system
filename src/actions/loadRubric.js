@@ -1,11 +1,12 @@
 var request = require('superagent');
 
-export default function loadRubric() {
+export default function loadRubric(assignment) {
 	return function (dispatch) {
 	console.log("inside loadRubric")
 	let apiUrl = sessionStorage.getItem('apiurl');
 	request
-		.get(apiUrl + 'loadRubric')
+		.post(apiUrl + 'loadRubric')
+		.send({assignment:assignment})
         .set('Content-Type', 'application/json')
 		.end((err,res) => {
 			if(err) {

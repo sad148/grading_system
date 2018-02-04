@@ -1,4 +1,5 @@
 const express = require('express');
+//import express  from 'express'
 const app = express();
 var bodyParser = require('body-parser');
 const updateFeedback = require('./updateFeedback.js');
@@ -59,7 +60,7 @@ app.post('/loadStudentCode',(req,res,next) => {
 	})	
 })
 
-app.get('/loadRubric',(req,res,next) => {
+app.post('/loadRubric',(req,res,next) => {
 	loadRubric.loadRubric(req, res, basePath, (response) => {
 		res.send(response);
 	})

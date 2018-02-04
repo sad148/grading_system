@@ -176,6 +176,14 @@ div#deductionsTableDiv {
 	height: 79%;
 }
 
+div#initialDiv {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    margin-top: 30%;
+    color: red;
+}
+
 table#deductionsTable {
     font-size: 13px;
 }

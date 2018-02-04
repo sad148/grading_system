@@ -12,8 +12,8 @@ var modal = {
 
 class Rubric extends Component {
     componentWillMount = () => {
-        this.setState({guidelines:<Loader />, fullForm:""});
-        this.props.dispatch(loadRubric());
+        this.setState({guidelines:<label>Please select student and assignment above to load guidelines</label>, fullForm:""});
+        //this.props.dispatch(loadRubric());
         this.counter = 0;
     }
 

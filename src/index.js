@@ -12,7 +12,7 @@ store.subscribe(() => {})
 ReactDOM.render(
 	<Provider store={store}>
 		<Router history={history}>
-	      <Route path="/home" component={App}>
+	      <Route path="/" component={App}>
 	     	 
 	      </Route>
     </Router>

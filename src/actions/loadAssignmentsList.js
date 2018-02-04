@@ -2,12 +2,13 @@ var request = require('superagent');
 
 export default function loadAssignmentsList() {
     return function (dispatch) {
+        let grader = sessionStorage.getItem('graderId');
         let apiUrl = sessionStorage.getItem('apiurl');
         console.log("inside loadAssignmentsList")
         request
             .post(apiUrl + 'loadAssignmentsList')
             .set('Content-Type', 'application/json')
-            .send({grader:"grader1"})
+            .send({grader:grader})
             .end((err,res) => {
                 if(err) {
                     console.log("Error",err);

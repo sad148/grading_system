@@ -1,7 +1,7 @@
 const fs = require('fs');
 var zipFolder = require('zip-folder');
 var shell = require('shelljs');
-
+//import shell from 'shelljs'
 function downloadFile(req, res, basePath, cb) {
     let student = req.body.student;
     let assignment = req.body.assignment;

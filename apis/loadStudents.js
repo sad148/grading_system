@@ -2,7 +2,7 @@ const fs = require('fs');
 
 function loadStudents(req,res,basePath,cb) {
 	let grader = req.body.grader;
-	fs.readFile(basePath + grader + '.txt','utf-8',(err,res) => {
+	fs.readFile(basePath + grader + '_Students.txt','utf-8',(err,res) => {
 		if(err) {
 			cb({
 				code:400,

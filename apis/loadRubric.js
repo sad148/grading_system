@@ -1,7 +1,8 @@
 const fs = require('fs');
 
 function loadRubric(req, res, basePath, cb) {
-	fs.readFile(basePath + 'Rubrik.txt','utf-8',(err,res) => {
+	let assignment = req.body.assignment;
+	fs.readFile(basePath + "Rubrik/"+ assignment +'-rubrik.txt','utf-8',(err,res) => {
 		if(err) {
 			cb({
 				code:400,

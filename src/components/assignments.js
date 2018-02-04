@@ -3,6 +3,8 @@ import loadAssignmentsList from '../actions/loadAssignmentsList.js'
 import loadData from '../actions/loadCodeandFeedback';
 import {connect} from 'react-redux';
 import store from "../store";
+import loadRubric from "../actions/loadRubric";
+
 
 class Assignments extends Component {
     componentWillMount = () => {
@@ -33,6 +35,7 @@ class Assignments extends Component {
         if(student != "default") {
             this.props.dispatch({type:"RUBRICDATA_RECEIVED",payload:store.getState().loadRubric.loadRubric});
             this.props.dispatch({type:"RESETRUBRIC"});
+            this.props.dispatch(loadRubric(assignment));
             this.props.dispatch(loadData(student, assignment));
         }
     }

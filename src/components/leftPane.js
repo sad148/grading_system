@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux'
+import loadRubric from "../actions/loadRubric";
 import loadData from '../actions/loadCodeandFeedback.js'
 import '../../node_modules/react-toastify/dist/ReactToastify.min.css';
 import loadStudents from '../actions/loadStudents.js';
@@ -36,6 +37,7 @@ class LeftPane extends Component {
         if(assignment != "default") {
 		    this.props.dispatch({type:"RUBRICDATA_RECEIVED",payload:store.getState().loadRubric.loadRubric});
 		    this.props.dispatch({type:"RESETRUBRIC"});
+            this.props.dispatch(loadRubric(assignment));
             this.props.dispatch(loadData(student, assignment));
         }
 	}
