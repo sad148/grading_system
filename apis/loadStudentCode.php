@@ -24,6 +24,7 @@ if (file_exists($path) == 1) {
                 if (strpos($item, ".java") !== false) {
                     $code = fopen($path . '/' . $version . '/' . $item, 'r');
                     $codeData = fread($code, filesize($path . '/' . $version . '/' . $item));
+                    fclose($code);
                     break;
                 }
             }
@@ -31,11 +32,12 @@ if (file_exists($path) == 1) {
         if (file_exists($path . '/' . $version . '/feedback.txt')) {
             $feedback = fopen($path . '/' . $version . '/feedback.txt', 'r');
             $feedbackData = fread($feedback, filesize($path . '/' . $version . '/feedback.txt'));
+            fclose($feedback);
         }
-
         $data = array('code' => $codeData, 'feedback' => $feedbackData, 'grades' => intval($grades));
         $response = array('code' => 200, 'message' => 'Success', 'data' => $data);
         $response = json_encode($response);
+        fclose($file);
         echo $response;
     }
 } else {

@@ -23,10 +23,12 @@ if (file_exists($filePath) == 1) {
     if (sizeof($fileData) > 0) {
         $response = array('code' => 200, 'message' => 'Success', data => $nameArr);
         $response = json_encode($response);
+        fclose($file);
         echo $response;
     } else {
         $response = array('code' => 400, 'message' => 'Students list not found');
         $response = json_encode($response);
+        fclose($file);
         echo $response;
     }
 } else {
