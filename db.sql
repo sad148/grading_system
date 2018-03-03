@@ -9,18 +9,18 @@ CREATE TABLE IF NOT Exists `courses` (
    CONSTRAINT courses_PK PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT Exists `professor` (
+CREATE TABLE IF NOT Exists `professors` (
   `id` varchar(32) NOT NULL  ,
   `name` varchar(25) NOT NULL,
   `email` varchar(15) NOT NULL,
    CONSTRAINT professor_PK PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT Exists `grader` (
+CREATE TABLE IF NOT Exists `graders` (
   `id` varchar(32) NOT NULL,
   `name` varchar(25) NOT NULL,
   `email` varchar(15) NOT NULL,
-   CONSTRAINT grader_PK PRIMARY KEY (`id`)
+   CONSTRAINT graders_PK PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT Exists `students` (
@@ -36,21 +36,22 @@ CREATE TABLE IF NOT Exists `assignments` (
   `name` varchar(100) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  CONSTRCREATE TABLE IF NOT Exists `coursesVsProfessor` (
-  `course_id` varchar(32) NOT NULL,
-  `student_id` varchar(32) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;AINT `assignments_PK` PRIMARY KEY (`id`),
+  CONSTRAINT `assignments_PK` PRIMARY KEY (`id`),
   CONSTRAINT `assignments_fk_courses_id` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT Exists `coursesVsProfessor` (
   `course_id` varchar(32) NOT NULL,
-  `student_id` varchar(32) NOT NULL
+  `professor_id` varchar(32) NOT NULL,
+  CONSTRAINT `coursesVsGrader_course_id` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
+  CONSTRAINT `coursesVsGrader_professor_id` FOREIGN KEY (`professor_id`) REFERENCES `professors` (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT Exists `coursesVsGrader` (
   `course_id` varchar(32) NOT NULL,
-  `grader_id` varchar(32) NOT NULL
+  `grader_id` varchar(32) NOT NULL,
+  CONSTRAINT `coursesVsGrader_course_id` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
+  CONSTRAINT `coursesVsGrader_grader_id` FOREIGN KEY (`grader_id`) REFERENCES `graders` (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT Exists `grades` (
@@ -58,7 +59,9 @@ CREATE TABLE IF NOT Exists `grades` (
   `student_id` varchar(15) NOT NULL,
   `grader_id` varchar(100) NOT NULL,
   `grade` integer(3) DEFAULT NULL,
-  CONSTRAINT `grades_fk_courses_id` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`)
+  CONSTRAINT `grades_assignment_id` FOREIGN KEY (`assignment_id`) REFERENCES `assignments` (`id`),
+  CONSTRAINT `grades_student_id` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
+    CONSTRAINT `grades_grader_id` FOREIGN KEY (`grader_id`) REFERENCES `graders` (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT Exists `login` (
