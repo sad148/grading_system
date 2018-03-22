@@ -2,11 +2,15 @@
 include 'defaults.php';
 header("Content-Type: application/json; charset=UTF-8");
 
+$filename = "testpath/filename.txt";
+
 $stmt = $mysqli->prepare("INSERT INTO assignments(id,course_id,name,created_at,updated_at) VALUES (?, ?, ?, ?, ?)");
 $stmt->bind_param("sssss", $id, $course_id, $name, $time, $time);
 
 $data = $POST['data'];
-$errorMessage = null;
+
+$SQLRecordsFailed = array();
+$FileRecordsFailed = array();
 
 
 foreach ($data as $value) {
@@ -15,17 +19,24 @@ foreach ($data as $value) {
 
     $id=md5(uniqid());
     $time = date();
-    $name = $tuple->course_id;
-    $email = $tuple->name;
+    $course_id = $tuple->course_id;
+    $name = $tuple->name;
 
     if($stmt) {
         if (!$stmt->execute()) {
-            $errorMessage = $errorMessage." ".$name;
+            array_push($SQLRecordsFailed,$name);
+        }
+        else{
+            $fileData = $name."\n";
+            if(!file_put_contents($filename, $fileData, FILE_APPEND | LOCK_EX))
+            {
+                array_push($FileRecordsFailed,$name);
+            }
         }
     }
 }
 
-if(is_null($errorMessage))
+if((count($SQLRecordsFailed) == 0 ) && (count($FileRecordsFailed) == 0))
 {
     $response = array('code' => 200, 'message' => 'Success');
     $response = json_encode($response);
@@ -33,11 +44,11 @@ if(is_null($errorMessage))
 }
 else
 {
-    $errorMessage = "Insertion of ".$errorMessage." records failed";
-    $response = array('code' => 400, 'message' => $errorMessage, 'error' => $stmt->error);
+    $response = array('code' => 400, 'message' => 'Failed', 'error' => $stmt->error, 'SQL_failed_records' => $SQLRecordsFailed, 'File_failed_records' => $FileRecordsFailed);
     $response = json_encode($response);
     echo $response;
 }
+
 
 
 if($stmt)

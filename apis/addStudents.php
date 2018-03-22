@@ -8,8 +8,9 @@ $stmt = $mysqli->prepare("INSERT INTO students(id, name, email) VALUES (?, ?, ?)
 $stmt->bind_param("sss", $id, $name, $email);
 
 $data = $POST['data'];
-$SQLErrorMessage = null;
-$fileErrorMessage = null;
+
+$SQLRecordsFailed = array();
+$FileRecordsFailed = array();
 
 
 foreach ($data as $value) {
@@ -22,19 +23,19 @@ foreach ($data as $value) {
 
     if($stmt) {
         if (!$stmt->execute()) {
-            $SQLErrorMessage = $SQLErrorMessage." ".$name;
+            array_push($SQLRecordsFailed,$email);
         }
         else{
             $fileData = $email."\n";
             if(!file_put_contents($filename, $fileData, FILE_APPEND | LOCK_EX))
             {
-                $fileErrorMessage = "File Writing failed";
+                array_push($FileRecordsFailed,$email);
             }
         }
     }
 }
 
-if(is_null($SQLErrorMessage) && is_null($fileErrorMessage))
+if((count($SQLRecordsFailed) == 0 ) && (count($FileRecordsFailed) == 0))
 {
     $response = array('code' => 200, 'message' => 'Success');
     $response = json_encode($response);
@@ -42,8 +43,7 @@ if(is_null($SQLErrorMessage) && is_null($fileErrorMessage))
 }
 else
 {
-    $errorMessage = "Insertion of ".$SQLErrorMessage." records failed";
-    $response = array('code' => 400, 'message' => $SQLErrorMessage, 'error' => $stmt->error);
+    $response = array('code' => 400, 'message' => 'Failed', 'error' => $stmt->error, 'SQL_failed_records' => $SQLRecordsFailed, 'File_failed_records' => $FileRecordsFailed);
     $response = json_encode($response);
     echo $response;
 }
