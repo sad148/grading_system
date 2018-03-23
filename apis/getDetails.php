@@ -21,8 +21,7 @@ function getDetails($courseId, $type, $mysqli){
     if($stmt = $mysqli->prepare($sql)){
          $stmt->bind_param("s", $courseId);
         if (!$stmt->execute()) {
-            echo "Retriving Details failed: (" . $stmt->errno . ") " . $stmt->error;
-            $response = array('code' => 400, 'message' => 'Course Cannot be added to the system','error'=> $stmt->error);
+            $response = array('code' => 400, 'message' => 'Retriving Details failed','error'=> $stmt->error);
             $response = json_encode($response);
             echo $response;
         }else{
