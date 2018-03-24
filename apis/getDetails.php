@@ -34,41 +34,38 @@ function getDetails($courseId, $type, $mysqli){
             $response = array('code' => 200, 'message' => 'Success', 'data'=>$details);
             $response = json_encode($response);
             echo $response;
+            $stmt->close();
         }
     }else{
          $response = array('code' => 400, 'message' => 'Retriving Details failed','error'=> $stmt->error);
-    $response = json_encode($response);
-    echo $response;
-    }
+        $response = json_encode($response);
+        echo $response;
 
+    }
+    $stmt->close();
    
 }
-$stmt = $mysqli->prepare("SELECT id from courses where course_code = ? and section_code=? and term=?");
-$stmt->bind_param("sss", $course_code,$sec_code,$term);
 
 $course_code = strtoupper(trim($_GET['course_code']));
 $sec_code = strtoupper(trim($_GET['section_code']));
 $term = strtoupper(trim($_GET['term']));
 $type = strtoupper(trim($_GET['type']));
-//echo $courseId." ".$course_code." ".$term." sec ".$sec_code." \n";
-if (!$stmt->execute()) {
-    $response = array('code' => 400, 'message' => 'Retriving Details failed','error'=> $stmt->error);
+
+if(is_null($course_code) || is_null($sec_code) || is_null($term) || is_null($type)){
+     $response = array('code' => 400, 'message' => 'Missing values in parameters','error'=> 'missing values');
     $response = json_encode($response);
     echo $response;
 }else{
-    $stmt->bind_result($courseId);
-    $stmt->fetch();
-    
+
+    $courseId = getCourseCode($course_code,$sec_code,$term,$mysqli);
+
     if($courseId == null){
-        $response = array('code' => 400, 'message' => 'No Assignment found for the course');
+        $response = array('code' => 400, 'message' => 'No Course Found');
         $response = json_encode($response); 
         echo $response;
     }else{
-        $stmt->close(); //close the statment or else it wont work becomes out of sync. 
-        getDetails($courseId,$type,$mysqli);
+      getDetails($courseId,$type,$mysqli);  
     }
-    
 }
-$stmt->close();
 $mysqli->close();
 ?>
