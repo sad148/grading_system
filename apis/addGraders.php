@@ -1,57 +1,71 @@
 <?php
-include 'defaults.php';
+include './defaults.php';
 header("Content-Type: application/json; charset=UTF-8");
 
-$filename = "testpath/filename.txt";
+$data = $_POST['data'];
+$data = json_decode($data);
+$graders = $data->graders;
+print_r($data);
+// $course_id = $data->course_id;
+$course_code = strtoupper(trim($data->course_code));
+$sec_code = strtoupper(trim($data->sec_code));
+$term = strtoupper(trim($data->term));
+$type = strtoupper(trim($data->type));
 
-$stmt = $mysqli->prepare("INSERT INTO grader(id, name, email) VALUES (?, ?, ?)");
-$stmt->bind_param("sss", $id, $name, $email);
+if(is_null($course_code) || is_null($sec_code) || is_null($term) || is_null($type)){
+     $response = array('code' => 400, 'message' => 'Missing values in parameters','error'=> 'missing values');
+    $response = json_encode($response);
+    echo $response;
+}else{
+    $courseId = getCourseCode($course_code,$sec_code,$term,$mysqli);
+    $filename = "./filename.txt";
+    if($stmt = $mysqli->prepare("INSERT INTO grader(id, name, course_id) VALUES (?, ?, ?,?)")){
 
-$data = $POST['data'];
+        $stmt->bind_param("ssss", $email, $name, $course_id);
+        
+        $errorMessage = null;
 
-$SQLRecordsFailed = array();
-$FileRecordsFailed = array();
+        $SQLRecordsFailed = array();
+        $FileRecordsFailed = array();
 
+        foreach ($graders as $tuple) {
+            $name = $tuple->name;
+            $email = $tuple->email;
 
-foreach ($data as $value) {
-
-    $tuple = json_decode($value);
-
-    $id=md5(uniqid());
-    $name = $tuple->name;
-    $email = $tuple->email;
-
-    if($stmt) {
-        if (!$stmt->execute()) {
-            array_push($SQLRecordsFailed,$email);
-        }
-        else{
-            $fileData = $email."\n";
-            if(!file_put_contents($filename, $fileData, FILE_APPEND | LOCK_EX))
-            {
-                array_push($FileRecordsFailed,$email);
+            if ($stmt) {
+                if (!$stmt->execute()) {
+                    array_push($SQLRecordsFailed, $email);
+                } else {
+                    $fileData = $email . "\n";
+                    if (!file_put_contents($filename, $fileData, FILE_APPEND | LOCK_EX)) {
+                        array_push($FileRecordsFailed, $email);
+                    }
+                }
             }
         }
+
+        if ((count($SQLRecordsFailed) == 0) && (count($FileRecordsFailed) == 0)) {
+            $response = array('code' => 200, 'message' => 'Success');
+            $response = json_encode($response);
+            echo $response;
+        } else {
+            $response = array('code' => 400, 'message' => 'Failed', 'error' => $stmt->error, 'SQL_failed_records' => $SQLRecordsFailed, 'File_failed_records' => $FileRecordsFailed);
+            $response = json_encode($response);
+            echo $response;
+        }
+
+
+        if ($stmt)
+            $stmt->close();
+
+    }else{
+        $response = array('code' => 400, 'message' => 'Error Ading Graders','error'=> $stmt->error);
+        $response = json_encode($response);
+        echo $response;
+
     }
+    
+
 }
-
-if((count($SQLRecordsFailed) == 0 ) && (count($FileRecordsFailed) == 0))
-{
-    $response = array('code' => 200, 'message' => 'Success');
-    $response = json_encode($response);
-    echo $response;
-}
-else
-{
-    $response = array('code' => 400, 'message' => 'Failed', 'error' => $stmt->error, 'SQL_failed_records' => $SQLRecordsFailed, 'File_failed_records' => $FileRecordsFailed);
-    $response = json_encode($response);
-    echo $response;
-}
-
-
-if($stmt)
-    $stmt->close();
-
-
 $mysqli->close();
 ?>
