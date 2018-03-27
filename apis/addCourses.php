@@ -12,12 +12,14 @@ $data = json_decode($data);
 $course_code = strtoupper(trim($data->course_code));
 $sec_code = strtoupper(trim($data->section_code));
 $term = strtoupper(trim($data->term));
+$prof_id = strtoupper(trim($data->professor_id));
 
-// $term = strtoupper(trim($_POST['term']));
-// $course_code = strtoupper(trim($_POST['course_code']));
-// $section_code = strtoupper(trim($_POST['section_code']));
-// $id=md5(uniqid());
-// $time=date();
+// $term = "SPRING 2018";
+// $course_code = "2150";
+// $section_code = "2099";
+// $prof_id = "prof145";
+$id=md5(uniqid());
+$time=date();
 
 print $stmt->error; //to check errors
 
@@ -27,9 +29,18 @@ if (!$stmt->execute()) {
     $response = json_encode($response);
     echo $response;
 }else{
-    $response = array('code' => 200, 'message' => 'Success');
-    $response = json_encode($response);
-    echo $response;
+	$stmt->close();
+	$stmt = $mysqli->prepare("INSERT INTO coursesVsProfessor (course_id, professor_id) VALUES (?, ?)");
+	$stmt->bind_param("ss", $id, $prof_id);
+	if (!$stmt->execute()) {
+	    $response = array('code' => 400, 'message' => 'Mapping Courses to Professor failed','error'=> $stmt->error);
+	    $response = json_encode($response);
+	    echo $response;
+	}else{
+		$response = array('code' => 200, 'message' => 'Success');
+		$response = json_encode($response);
+		echo $response;
+	}
 }
 $stmt->close();
 $mysqli->close();
