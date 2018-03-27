@@ -10,7 +10,7 @@ function getDetails($courseId, $type, $mysqli){
         break;  
 
         case "GRADERS":
-        $sql="SELECT id,name from graders where course_id = ?";
+        $sql="SELECT id,name from grader where course_id = ?";
         break;  
 
         case "ASSIGNMENTS": 
