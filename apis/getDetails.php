@@ -50,7 +50,7 @@ function getDetails($courseId, $type, $mysqli){
 $data = $_GET['data'];
 $data = json_decode($data);
 $course_code = strtoupper(trim($data->course_code));
-$sec_code = strtoupper(trim($data->sec_code));
+$sec_code = strtoupper(trim($data->section_code));
 $term = strtoupper(trim($data->term));
 $type = strtoupper(trim($data->type));
 

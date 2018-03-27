@@ -7,7 +7,7 @@ $data = json_decode($data);
 $students = $data->students;
 // $course_id = $data->course_id;
 $course_code = strtoupper(trim($data->course_code));
-$sec_code = strtoupper(trim($data->sec_code));
+$sec_code = strtoupper(trim($data->section_code));
 $term = strtoupper(trim($data->term));
 
 if(is_null($course_code) || is_null($sec_code) || is_null($term)){

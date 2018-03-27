@@ -10,7 +10,7 @@ $stmt->bind_param("ssssss", $id, $term, $course_code, $section_code, $time,$time
 $data = $_POST['data'];
 $data = json_decode($data);
 $course_code = strtoupper(trim($data->course_code));
-$sec_code = strtoupper(trim($data->sec_code));
+$sec_code = strtoupper(trim($data->section_code));
 $term = strtoupper(trim($data->term));
 
 // $term = strtoupper(trim($_POST['term']));
