@@ -1,0 +1,86 @@
+Format for each API
+1. Adding Courses
+	a. URL - addCourses.php
+	b. params 
+		data{
+			course_code // New COurse
+			section_code //New Section
+			term 		// NEW or OLD term
+			professor_id 	// Professor id in the system
+		}
+	c.API _TYPE=POST
+	d. Note:
+		THe api will not work if passing a new professor id. Make sure the professor id is in the system
+2. Adding Graders
+	a. URL - addGraders.php
+	b. params 
+		data{
+			course_code 
+			section_code 
+			term 		
+			graders{
+				name
+				email
+			} 	
+		}
+	c.API _TYPE=POST
+3. Adding Students
+	a. URL - addStudents.php
+	b. params 
+		data{
+			course_code 
+			section_code 
+			term 		
+			students{
+				name
+				email
+			} 	
+		}
+	c.API _TYPE=POST
+4.Get all COurses for a term
+	a. URL - getCourses.php
+	b. params 
+		data{
+			term 		
+		}
+	c.API _TYPE=GET
+5.Get all graders for a course
+	a. URL - getDetails.php
+	b. params 
+		data{
+			course_code 
+			section_code 
+			term 		
+			type = "GRADERS"
+		}
+	c.API _TYPE=GET
+6.Get all studnets for a course
+	a. URL - getDetails.php
+	b. params 
+		data{
+			course_code 
+			section_code 
+			term 		
+			type = "STUDENTS"
+		}
+	c.API _TYPE=GET
+7.Get all Assignments for a course
+	a. URL - getDetails.php
+	b. params 
+		data{
+			course_code 
+			section_code 
+			term 		
+			type = "ASSIGNMENTS"
+		}
+	c.API _TYPE=GET
+
+8.Get all courses for a professor
+	a. URL - getProfCourses.php
+	b. params 
+		data{
+			professor_id
+		}
+	c.API _TYPE=GET
+
+TODO : GET RUBRIC
