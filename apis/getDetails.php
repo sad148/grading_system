@@ -46,10 +46,13 @@ function getDetails($courseId, $type, $mysqli){
    
 }
 
-$course_code = strtoupper(trim($_GET['course_code']));
-$sec_code = strtoupper(trim($_GET['section_code']));
-$term = strtoupper(trim($_GET['term']));
-$type = strtoupper(trim($_GET['type']));
+
+$data = $_GET['data'];
+$data = json_decode($data);
+$course_code = strtoupper(trim($data->course_code));
+$sec_code = strtoupper(trim($data->sec_code));
+$term = strtoupper(trim($data->term));
+$type = strtoupper(trim($data->type));
 
 if(is_null($course_code) || is_null($sec_code) || is_null($term) || is_null($type)){
      $response = array('code' => 400, 'message' => 'Missing values in parameters','error'=> 'missing values');

@@ -5,7 +5,9 @@ header("Content-Type: application/json; charset=UTF-8");
 $stmt = $mysqli->prepare("SELECT id,term,course_code,section_code from courses where term = ?");
 $stmt->bind_param("s", $term);
 
-$term = strtoupper(trim($_GET['term']));
+$data = $_GET['data'];
+$data = json_decode($data);
+$term = strtoupper(trim($data->term));
 if (!$stmt->execute()) {
     echo "Retriving Courses failed: (" . $stmt->errno . ") " . $stmt->error;
     $response = array('code' => 400, 'message' => 'Course Cannot be added to the system','error'=> $stmt->error);
