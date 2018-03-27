@@ -5,11 +5,19 @@ header("Content-Type: application/json; charset=UTF-8");
 $stmt = $mysqli->prepare("INSERT INTO courses (id, term, course_code, section_code,created_at,updated_at) VALUES (?, ?, ?, ?, ?, ?)");
 $stmt->bind_param("ssssss", $id, $term, $course_code, $section_code, $time,$time);
 
-$term = strtoupper(trim($_POST['term']));
-$course_code = strtoupper(trim($_POST['course_code']));
-$section_code = strtoupper(trim($_POST['section_code']));
-$id=md5(uniqid());
-$time=date();
+
+
+$data = $_POST['data'];
+$data = json_decode($data);
+$course_code = strtoupper(trim($data->course_code));
+$sec_code = strtoupper(trim($data->sec_code));
+$term = strtoupper(trim($data->term));
+
+// $term = strtoupper(trim($_POST['term']));
+// $course_code = strtoupper(trim($_POST['course_code']));
+// $section_code = strtoupper(trim($_POST['section_code']));
+// $id=md5(uniqid());
+// $time=date();
 
 print $stmt->error; //to check errors
 
