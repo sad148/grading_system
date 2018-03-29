@@ -22,7 +22,7 @@ if(is_null($course_code) || is_null($sec_code) || is_null($term)){
         echo $response;
     }else{
 
-        $filename = "testpath/filename.txt";
+        $filename = "filename.txt";
 
         $stmt = $mysqli->prepare("INSERT INTO assignments(id,course_id,name,created_at,updated_at) VALUES (?, ?, ?, ?, ?)");
         $stmt->bind_param("sssss", $id, $course_id, $name, $time, $time);

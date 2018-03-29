@@ -2,9 +2,9 @@
 include 'defaults.php';
 header("Content-Type: application/json; charset=UTF-8");
 
-$filename = "testpath/filename.txt";
+$filename = "filename.txt";
 
-$data = $POST['data'];
+$data = $_POST['data'];
 $records_failed = array();
 
 
