@@ -2,19 +2,26 @@
 include 'defaults.php';
 header("Content-Type: application/json; charset=UTF-8");
 
-$filename = "filename.txt";
+
 
 $data = $_POST['data'];
+$data = json_decode($data);
+
+$rubric = $data->rubric;
+$assignment_id = strtoupper(trim($data->assignment_id));
+
+
+$filename = $assignment_id."_rubric.txt";
 $records_failed = array();
 
 
-foreach ($data as $value) {
+foreach ($rubric as $value) {
 
-    $tuple = json_decode($value);
 
-    $grade= $tuple->grade;
-    $short_desc = $tuple->short_desc;
-    $long_desc = $tuple->long_desc;
+
+    $grade= $value->grade;
+    $short_desc = $value->short_desc;
+    $long_desc = $value->long_desc;
 
     $fileData = $grade."\n".$short_desc."\n".$long_desc."\n";
     if(!file_put_contents($filename, $fileData, FILE_APPEND | LOCK_EX))
