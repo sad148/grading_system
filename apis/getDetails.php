@@ -2,11 +2,12 @@
 include 'defaults.php';
 header("Content-Type: application/json; charset=UTF-8");
 
-function getDetails($courseId,$assignment_id, $type, $mysqli){
+function getDetails($courseId,$assignment_id, $type, $mysqli,$grader_id){
     $sql="";
     switch ($type){
         case "STUDENTS":
-            $sql="SELECT id,name from students where course_id = ?";
+            getStudentsList($grader_id);
+            //$sql="SELECT id,name from students where course_id = ?";
             break;
 
         case "GRADERS":
@@ -59,6 +60,7 @@ $sec_code = strtoupper(trim($data->section_code));
 $term = strtoupper(trim($data->term));
 $type = strtoupper(trim($data->type));
 $assignment_id = strtoupper(trim($data->assignment_id));
+$grader_id = strtoupper(trim($data->grader_id));
 
 if(is_null($course_code) || is_null($sec_code) || is_null($term) || is_null($type)){
      $response = array('code' => 400, 'message' => 'Missing values in parameters','error'=> 'missing values');
@@ -73,7 +75,7 @@ if(is_null($course_code) || is_null($sec_code) || is_null($term) || is_null($typ
         $response = json_encode($response); 
         echo $response;
     }else{
-      getDetails($courseId,$assignment_id,$type,$mysqli);
+      getDetails($courseId,$assignment_id,$type,$mysqli,$grader_id);
     }
 }
 $mysqli->close();
@@ -101,6 +103,34 @@ function getRubrics($assignment_id)
             $long_desc = $file_data[$i+2];
 
             array_push($details, array('grade' => $grade, 'short_desc' => $short_desc,'long_desc' => $long_desc));
+        }
+
+        $response = array('code' => 200, 'message' => 'Success', 'data'=>$details);
+        $response = json_encode($response);
+        echo $response;
+
+    }
+}
+
+function getStudentsList($grader_id)
+{
+    $fileContents = file_get_contents($grader_id.'_students.txt');
+
+    if(!$fileContents)
+    {
+        $response = array('code' => 400, 'message' => 'Error reading file','error'=> 'File Reading failed');
+        $response = json_encode($response);
+        echo $response;
+    }
+    else{
+        $details = array();
+        $file_data = explode("\n", $fileContents);
+
+        for($i=0; $i<count($file_data); $i++)
+        {
+            $student_username = $file_data[$i];
+
+            array_push($details, $student_username);
         }
 
         $response = array('code' => 200, 'message' => 'Success', 'data'=>$details);
