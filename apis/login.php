@@ -2,14 +2,18 @@
 include 'defaults.php';
 header("Content-Type: application/json; charset=UTF-8");
 
-$username = strtoupper($_POST['username']);
-$password = md5($_POST['password']);
+$data = $_POST['data'];
+$data = json_decode($data);
+$username = strtoupper($data->username);
+$password = md5($data->password);
 
-$stmt = $mysqli->prepare("SELECT password,role from login where username = ? AND password =?");
+//$username = "OBS5";
+//$password = md5("omkar123");
+
+$stmt = $mysqli->prepare("SELECT role from login where username = ? AND password =?");
 $stmt->bind_param("ss", $username,$password);
+//$stmt->bind_result($user_password,$user_role);
 
-$stmt2 = $mysqli->prepare("SELECT * from grader where username = ?");
-$stmt2->bind_param("s", $username);
 
 if (!$stmt->execute()) {
     echo "Log in Error: (" . $stmt->errno . ") " . $stmt->error;
@@ -17,44 +21,44 @@ if (!$stmt->execute()) {
     $response = json_encode($response);
     echo $response;
 }
-else{
-	
-	
-    $stmt->bind_result($result);
-	
-	if($result -> num_rows > 0)
-	{
-		$row = $result -> fetch_assoc();
-		$role = $row['role']
-	
-		if($role == 1)
-		{
-			professorLogIn();
-		}
-		else
-		{
-			graderLogIn();
-		}	
-	}
-	else
-	{
-		$response = array('code' => 400, 'message' => 'Incorrect username or password');
-		$response = json_encode($response);
-		echo $response
-	}
-	
-	$stmt->close();
-	$mysqli->close();
+else {
+
+    $stmt->bind_result($user_role);
+    $role = 3; //default value
+
+        while ($stmt->fetch()) {
+            $role = $user_role;
+        }
+
+        $stmt ->close();
+
+        if ($role == 1) {
+            professorLogIn();
+        } else if($role ==0){
+            $stmt = $mysqli->prepare("SELECT name from grader where username = ?");
+            $stmt->bind_param("s", $username);
+            graderLogIn($stmt);
+        }
+        else
+            {
+        $response = array('code' => 400, 'message' => 'Incorrect username or password');
+        $response = json_encode($response);
+        echo $response;
+    }
+
+    //$stmt->close();
+    $mysqli->close();
+}
 	
 	function professorLogIn()
 	{
-		$response = array('code' => 200, 'message' => 'Success', 'flag' => 1);
+		$response = array('code' => 200, 'message' => 'Success', 'role' => 1);
 		$response = json_encode($response);
-		echo $response
+		echo $response;
 	}
 	
 	
-	function graderLogIn($password1,$password)
+	function graderLogIn($stmt2)
 	{
 		if (!$stmt2->execute())
 		{
@@ -66,19 +70,24 @@ else{
 		else
 		{
 			$stmt2->bind_result($result2);
+
+            while ($stmt2->fetch()) {
+                //echo $result2;
+            }
+
 	
-			if($result2 -> num_rows > 0)
+			if($stmt2 -> num_rows() > 0)
 			{
 				
-				$response = array('code' => 200, 'message' => 'Success' 'flag' => 0);
+				$response = array('code' => 200, 'message' => 'Success' ,'role' => 0);
 				$response = json_encode($response);
-				echo $response
+				echo $response;
 			}
 			else
 			{
 				$response = array('code' => 400, 'message' => 'Grader does not exist');
 				$response = json_encode($response);
-				echo $response
+				echo $response;
 			}	
 			
 			$stmt2 -> close();
