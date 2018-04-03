@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import brace from 'brace';
 import AceEditor from 'react-ace';
 import 'brace/mode/java';
+import brace from 'brace';
 import 'brace/theme/monokai';
 import 'brace/theme/chrome';
 import Switch from 'react-toggle-switch';

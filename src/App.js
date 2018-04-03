@@ -9,15 +9,15 @@ export default class App extends Component {
         render: false
     }
     componentDidMount = () => {
-        let grader = prompt("Please enter your id", "");
-        if (grader == null) {
-            alert('Please enter your id. Refresh the page to enter again!')
-            this.setState({render: false})
-        } else {
-            sessionStorage.setItem('graderId', grader);
-            sessionStorage.setItem('apiurl', 'http://localhost:3009/');
-            this.setState({render: true})
-        }
+        // let grader = prompt("Please enter your id", "");
+        // if (grader == null) {
+        //     alert('Please enter your id. Refresh the page to enter again!')
+        //     this.setState({render: false})
+        // } else {
+        //     sessionStorage.setItem('graderId', grader);
+        //     sessionStorage.setItem('apiurl', 'http://localhost:3009/');
+        //     this.setState({render: true})
+        // }
     }
 
     render = () => {
@@ -26,10 +26,7 @@ export default class App extends Component {
                 <div id='topPane'>
                     <h3>Grading System</h3>
                 </div>
-                {
-                    (this.state.render == true) ? <div><LeftPane/><RightPane/></div> :
-                        <div id="initialDiv"><h1>Please refresh page to enter id and start using application</h1></div>
-                }
+                <div><LeftPane/><RightPane/></div>
             </div>
         );
     }
