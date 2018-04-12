@@ -28,6 +28,8 @@ if (is_null($course_code) || is_null($sec_code) || is_null($term)) {
         $SQLRecordsFailed = array();
         $FileRecordsFailed = array();
 
+        $counter = 0;
+
         foreach ($students as $tuple) {
             $name = $tuple->name;
             $email = $tuple->email;
@@ -36,12 +38,17 @@ if (is_null($course_code) || is_null($sec_code) || is_null($term)) {
                 if (!$stmt->execute()) {
                     array_push($SQLRecordsFailed, $email);
                 } else {
-                    $fileData = $email . "\n";
+                    if($counter == (count($students) - 1) )
+                        $fileData = $email;
+                    else
+                        $fileData = $email . "\n";
+
                     if (!file_put_contents($filename, $fileData, FILE_APPEND | LOCK_EX)) {
                         array_push($FileRecordsFailed, $email);
                     }
                 }
             }
+            $counter++;
         }
         if ((count($SQLRecordsFailed) == 0) && (count($FileRecordsFailed) == 0)) {
             $response = array('code' => 200, 'message' => 'Success');

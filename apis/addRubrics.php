@@ -15,7 +15,7 @@ $assignment_id = $data->assignment_id;
 $filename = $course_code.'/'.$assignment_id.'_rubric.txt';
 $records_failed = array();
 
-
+$counter = 0;
 foreach ($rubric as $value) {
 
 
@@ -23,11 +23,16 @@ foreach ($rubric as $value) {
     $short_desc = $value->short_desc;
     $long_desc = $value->long_desc;
 
-    $fileData = $grade."\n".$short_desc."\n".$long_desc."\n";
+    if($counter == (count($rubric) - 1))
+        $fileData = $grade."\n".$short_desc."\n".$long_desc;
+    else
+        $fileData = $grade."\n".$short_desc."\n".$long_desc."\n";
+
     if(!file_put_contents($filename, $fileData, FILE_APPEND | LOCK_EX))
     {
         array_push($records_failed,$short_desc);
     }
+    $counter++;
 }
 
 

@@ -34,6 +34,8 @@ if(is_null($course_code) || is_null($sec_code) || is_null($term)){
         $SQLRecordsFailed = array();
         $FileRecordsFailed = array();
 
+        $counter = 0;
+
         foreach ($assignments as $tuple) {
 
             $id=md5(uniqid());
@@ -45,13 +47,19 @@ if(is_null($course_code) || is_null($sec_code) || is_null($term)){
                     array_push($SQLRecordsFailed,$name);
                 }
                 else{
-                    $fileData = $name."\n";
+
+                    if($counter == (count($assignments) - 1) )
+                        $fileData = $name;
+                    else
+                        $fileData = $name."\n";
+
                     if(!file_put_contents($filename, $fileData, FILE_APPEND | LOCK_EX))
                     {
                         array_push($FileRecordsFailed,$name);
                     }
                 }
             }
+            $counter++;
         }
 
         if((count($SQLRecordsFailed) == 0 ) && (count($FileRecordsFailed) == 0))

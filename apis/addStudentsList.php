@@ -19,13 +19,20 @@ $students = $data->students;
 
 $filename = $grader_id."_students.txt";
 
+$counter = 0;
+
 foreach ($students as $user_id){
     
-    $fileData = $user_id."\n";
+    if($counter == (count($students) - 1) )
+        $fileData = $user_id;
+    else
+        $fileData = $user_id."\n";
+
     if(!file_put_contents($filename, $fileData, FILE_APPEND | LOCK_EX))
     {
         array_push($records_failed,$user_id);
     }
+    $counter++;
 }
 
 if(count($records_failed) == 0)
