@@ -37,6 +37,12 @@ if(is_null($course_code) || is_null($sec_code) || is_null($term)){
 
         $counter = 0;
 
+        if ( 0 != filesize( $filename ) )
+        {
+            file_put_contents($filename, "\n", FILE_APPEND | LOCK_EX);
+        }
+
+
         foreach ($graders as $tuple) {
             $name = $tuple->name;
             $email = $tuple->email;

@@ -16,6 +16,12 @@ $filename = $course_code.'/'.$assignment_id.'_rubric.txt';
 $records_failed = array();
 
 $counter = 0;
+
+if ( 0 != filesize( $filename ) )
+{
+    file_put_contents($filename, "\n", FILE_APPEND | LOCK_EX);
+}
+
 foreach ($rubric as $value) {
 
 

@@ -21,8 +21,13 @@ $filename = $grader_id."_students.txt";
 
 $counter = 0;
 
+if ( 0 != filesize( $filename ) )
+{
+    file_put_contents($filename, "\n", FILE_APPEND | LOCK_EX);
+}
+
 foreach ($students as $user_id){
-    
+
     if($counter == (count($students) - 1) )
         $fileData = $user_id;
     else
