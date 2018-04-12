@@ -18,7 +18,7 @@ if(is_null($course_code) || is_null($sec_code) || is_null($term)){
     $course_id = getCourseCode($course_code,$sec_code,$term,$mysqli);
     if($course_id == null){
         $response = array('code' => 400, 'message' => 'No Course Found');
-        $response = json_encode($response); 
+        $response = json_encode($response);
         echo $response;
     }else{
 
@@ -35,7 +35,7 @@ if(is_null($course_code) || is_null($sec_code) || is_null($term)){
         foreach ($assignments as $tuple) {
 
             $id=md5(uniqid());
-            $time = date();
+            $time = date('Y-m-d');
             $name = $tuple->name;
 
             if($stmt) {

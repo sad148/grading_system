@@ -21,16 +21,12 @@ if(is_null($course_code) || is_null($sec_code) || is_null($term)){
         $response = json_encode($response); 
         echo $response;
     }else{
-
-        $filename = "testpath/filename.txt";
-
+        $filename = "./filename.txt";
         $stmt = $mysqli->prepare("INSERT INTO students(id, name, course_id) VALUES (?, ?, ?)");
         $stmt->bind_param("sss", $email, $name, $course_id);
-
         $errorMessage = null;
         $SQLRecordsFailed = array();
         $FileRecordsFailed = array();
-
 
         foreach ($students as $tuple) {
             $name = $tuple->name;
