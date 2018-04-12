@@ -5,7 +5,7 @@ header("Content-Type: application/json; charset=UTF-8");
 $data = $_POST['data'];
 $data = json_decode($data);
 $students = $data->students;
-// $course_id = $data->course_id;
+$grader_id = $data->grader_id;
 $course_code = strtoupper(trim($data->course_code));
 $sec_code = strtoupper(trim($data->section_code));
 $term = strtoupper(trim($data->term));
@@ -22,7 +22,8 @@ if(is_null($course_code) || is_null($sec_code) || is_null($term)){
         echo $response;
     }else{
 
-        $filename = "testpath/filename.txt";
+        // $filename = "testpath/filename.txt";
+        $filename = $course_code.'/'.$grader_id."_students.txt";
 
         $stmt = $mysqli->prepare("INSERT INTO students(id, name, course_id) VALUES (?, ?, ?)");
         $stmt->bind_param("sss", $email, $name, $course_id);

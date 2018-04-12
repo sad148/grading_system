@@ -36,6 +36,11 @@ if (!$stmt->execute()) {
         $response = json_encode($response);
         echo $response;
     } else {
+        //Create a folder under coursecode
+        if (!file_exists($course_code)) {
+            mkdir($course_code, 0777, true);
+        }
+
         $response = array('code' => 200, 'message' => 'Success');
         $response = json_encode($response);
         echo $response;
