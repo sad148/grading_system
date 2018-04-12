@@ -24,6 +24,7 @@ function getDetails($courseId,$assignment_id, $type, $mysqli,$grader_id){
 
        default:
     }
+
     if($stmt = $mysqli->prepare($sql)){
          $stmt->bind_param("s", $courseId);
         if (!$stmt->execute()) {
