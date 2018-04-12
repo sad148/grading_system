@@ -7,7 +7,7 @@ function getDetails($courseId, $assignment_id, $type, $mysqli, $grader_id)
     $sql = "";
     switch ($type) {
         case "STUDENTS":
-            getStudentsList($grader_id);
+            getStudentsList($grader_id,$course_code);
             //$sql="SELECT id,name from students where course_id = ?";
             break;
 
@@ -20,7 +20,7 @@ function getDetails($courseId, $assignment_id, $type, $mysqli, $grader_id)
             break;
 
         case "RUBRICS":
-            getRubrics($assignment_id);
+            getRubrics($assignment_id,$course_code);
             break;
 
         default:
@@ -81,8 +81,7 @@ $mysqli->close();
 
 function getRubrics($assignment_id)
 {
-    $fileContents = file_get_contents($assignment_id . '_rubric.txt');
-
+    $fileContents = file_get_contents($course_code.'/'.$assignment_id.'_rubric.txt');
 
     if (!$fileContents) {
         $response = array('code' => 400, 'message' => 'Error reading file', 'error' => 'File Reading failed');
@@ -107,9 +106,9 @@ function getRubrics($assignment_id)
     }
 }
 
-function getStudentsList($grader_id)
+function getStudentsList($grader_id,$course_code)
 {
-    $fileContents = file_get_contents($grader_id . '_students.txt');
+    $fileContents = file_get_contents($course_code.'/'.$grader_id.'_students.txt');
 
     if (!$fileContents) {
         $response = array('code' => 400, 'message' => 'Error reading file', 'error' => 'File Reading failed');
