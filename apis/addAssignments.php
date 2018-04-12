@@ -18,11 +18,13 @@ if(is_null($course_code) || is_null($sec_code) || is_null($term)){
     $course_id = getCourseCode($course_code,$sec_code,$term,$mysqli);
     if($course_id == null){
         $response = array('code' => 400, 'message' => 'No Course Found');
-        $response = json_encode($response); 
+        $response = json_encode($response);
         echo $response;
     }else{
 
-        $filename = "filename.txt";
+        // $filename = "filename.txt";
+
+        $filename = $course_code.'/'.'assignments.txt';
 
         $stmt = $mysqli->prepare("INSERT INTO assignments(id,course_id,name,created_at,updated_at) VALUES (?, ?, ?, ?, ?)");
         $stmt->bind_param("sssss", $id, $course_id, $name, $time, $time);
@@ -35,7 +37,7 @@ if(is_null($course_code) || is_null($sec_code) || is_null($term)){
         foreach ($assignments as $tuple) {
 
             $id=md5(uniqid());
-            $time = date();
+            $time = date('Y-m-d');
             $name = $tuple->name;
 
             if($stmt) {

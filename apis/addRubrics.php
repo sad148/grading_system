@@ -2,21 +2,21 @@
 include 'defaults.php';
 header("Content-Type: application/json; charset=UTF-8");
 
-
-
 $data = $_POST['data'];
 $data = json_decode($data);
 
 $rubric = $data->rubric;
-$assignment_id = strtoupper(trim($data->assignment_id));
+// $assignment_id = strtoupper(trim($data->assignment_id));
+
+$course_code = strtoupper(trim($data->course_code));
+$assignment_id = $data->assignment_id;
 
 
-$filename = $assignment_id."_rubric.txt";
+$filename = $course_code.'/'.$assignment_id.'_rubric.txt';
 $records_failed = array();
 
 
 foreach ($rubric as $value) {
-
 
 
     $grade= $value->grade;

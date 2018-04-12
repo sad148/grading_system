@@ -1,0 +1,7 @@
+.idea
+node_modules
+package-lock.json
+Rubrik.txt
+apis/401-handin
+Dockerfile
+npm-debug.log
